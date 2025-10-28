@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Performance Deck - September 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 600px;
+            position: relative;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .date-stamp {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 38px;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #2a5298;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 26px;
+            margin: 25px 0 15px 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 26px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .kpi-value {
+            font-size: 46px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .kpi-label {
+            font-size: 16px;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .kpi-change {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 5px 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .kpi-change.positive {
+            color: #4ade80;
+        }
+
+        .kpi-change.negative {
+            color: #f87171;
+        }
+
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .revenue-card {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 6px solid #2a5298;
+        }
+
+        .revenue-amount {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .revenue-label {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .growth-chart {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .growth-bar {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .growth-label {
+            width: 150px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .growth-bar-fill {
+            flex: 1;
+            height: 40px;
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .metrics-comparison {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .metric-value-large {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 20px 0;
+        }
+
+        .metric-description {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 6px solid #f59e0b;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box p {
+            color: #78350f;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .transaction-breakdown {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .transaction-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .transaction-value {
+            font-size: 34px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .transaction-label {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .executive-summary h3 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .executive-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .executive-summary li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .executive-summary li:last-child {
+            border-bottom: none;
+        }
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .performance-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid #2a5298;
+        }
+
+        .performance-title {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .performance-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .timeline {
+            margin-top: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+
+        .timeline-date {
+            background: #1e3c72;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: #f8fafc;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-left: 20px;
+            border-left: 4px solid #2a5298;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-badge.excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.good {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.fair {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">1</div>
+            <h1>Business Performance Deck</h1>
+            <p class="subtitle">Q2 2025 Performance Review</p>
+            <div style="text-align: center; margin-top: 100px;">
+                <p style="font-size: 32px; color: #1e3c72; font-weight: bold; margin-bottom: 30px;">MyBambu</p>
+                <p style="font-size: 22px; color: #666; margin-top: 20px;">Financial Performance & Key Metrics</p>
+                <p style="font-size: 18px; color: #999; margin-top: 80px;">Updated: October 27, 2025</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">2</div>
+            <h2>Executive Summary</h2>
+            <div class="executive-summary">
+                <h3>Q2 2025 Performance Highlights</h3>
+                <ul>
+                    <li><strong>Customer Base:</strong> 929,000+ total customers with 129,322 active customers</li>
+                    <li><strong>Revenue Growth:</strong> $13.3M+ in annual revenue, $2.64M in Q2 2025</li>
+                    <li><strong>Transaction Volume:</strong> 40.56 million+ transactions processed</li>
+                    <li><strong>Geographic Reach:</strong> Operating across 6 countries</li>
+                    <li><strong>Team Growth:</strong> 170+ employees supporting operations</li>
+                    <li><strong>Transaction Growth:</strong> 111% increase from Q4 2023 to Q2 2025</li>
+                </ul>
+            </div>
+            <div class="highlight-box">
+                <h3>Key Achievement</h3>
+                <p>Customer base grew from <strong>182,000 (Q1 2022)</strong> to <strong>929,000+ (Q2 2025)</strong> - representing over <strong>410% growth</strong> in 3 years.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Key Performance Indicators -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">3</div>
+            <h2>Key Performance Indicators</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-value">929K+</div>
+                    <div class="kpi-label">Total Customers</div>
+                    <div class="kpi-change positive">↑ 410% Since Q1 2022</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">40.56M+</div>
+                    <div class="kpi-label">Total Transactions</div>
+                    <div class="kpi-change positive">↑ 111% vs Q4 2023</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">$13.3M+</div>
+                    <div class="kpi-label">Annual Revenue</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">129,322</div>
+                    <div class="kpi-label">Active Customers</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">170+</div>
+                    <div class="kpi-label">Employees</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">6</div>
+                    <div class="kpi-label">Countries</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Revenue Performance -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">4</div>
+            <h2>Revenue Performance</h2>
+            <div class="revenue-grid">
+                <div class="revenue-card">
+                    <div class="revenue-amount">$13.3M+</div>
+                    <div class="revenue-label">Annual Revenue (Past 12 Months)</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">$2.64M</div>
+                    <div class="revenue-label">Q2 2025 Revenue</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">$8.31</div>
+                    <div class="revenue-label">Revenue per Customer</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">$50.79</div>
+                    <div class="revenue-label">Customer Acquisition Cost</div>
+                </div>
+            </div>
+            <div class="growth-chart">
+                <h3>Customer Growth Timeline</h3>
+                <div class="growth-bar">
+                    <div class="growth-label">Q1 2022</div>
+                    <div class="growth-bar-fill" style="width: 21%;">182,000</div>
+                </div>
+                <div class="growth-bar">
+                    <div class="growth-label">Q2 2024</div>
+                    <div class="growth-bar-fill" style="width: 60%;">527,000</div>
+                </div>
+                <div class="growth-bar">
+                    <div class="growth-label">Q2 2025</div>
+                    <div class="growth-bar-fill" style="width: 100%;">929,000+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Transaction Volume Analysis -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">5</div>
+            <h2>Transaction Volume Analysis</h2>
+            <p style="font-size: 20px; color: #666; margin-bottom: 30px;">Q2 2025 Transaction Breakdown</p>
+            <div class="transaction-breakdown">
+                <div class="transaction-item">
+                    <div class="transaction-value">$1.72B+</div>
+                    <div class="transaction-label">POS/Card Transactions</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-value">$583.8M+</div>
+                    <div class="transaction-label">Cash Loads</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-value">$580.5M+</div>
+                    <div class="transaction-label">ACH Transactions</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-value">$377.1M+</div>
+                    <div class="transaction-label">Cross-border Transfers</div>
+                </div>
+            </div>
+            <div class="metrics-comparison" style="margin-top: 50px;">
+                <div class="metric-box">
+                    <div class="metric-description">Total Transaction Volume</div>
+                    <div class="metric-value-large">$3.3B+</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-description">Growth Rate (Q4 2023 - Q2 2025)</div>
+                    <div class="metric-value-large">111%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Customer Metrics -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">6</div>
+            <h2>Customer Metrics Deep Dive</h2>
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <div class="performance-title">Total Customers</div>
+                    <div class="performance-value">929K+</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-title">Active Customers</div>
+                    <div class="performance-value">129K</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-title">Activation Rate</div>
+                    <div class="performance-value">13.9%</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-title">Avg Revenue per User</div>
+                    <div class="performance-value">$8.31</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-title">CAC</div>
+                    <div class="performance-value">$50.79</div>
+                </div>
+                <div class="performance-card">
+                    <div class="performance-title">CAC Payback</div>
+                    <div class="performance-value">6.1 mo</div>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 50px;">
+                <h3>Customer Growth Trajectory</h3>
+                <p>From Q1 2022 to Q2 2025, the customer base grew by <strong>747,000 customers</strong>, representing a compound annual growth rate of approximately <strong>126% per year</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Operational Efficiency -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">7</div>
+            <h2>Operational Efficiency</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                        <th>Status</th>
+                        <th>Benchmark</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Revenue per Customer</strong></td>
+                        <td>$8.31</td>
+                        <td><span class="status-badge good">Good</span></td>
+                        <td>Industry: $5-10</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Acquisition Cost</strong></td>
+                        <td>$50.79</td>
+                        <td><span class="status-badge excellent">Excellent</span></td>
+                        <td>Industry: $50-100</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CAC Payback Period</strong></td>
+                        <td>6.1 months</td>
+                        <td><span class="status-badge excellent">Excellent</span></td>
+                        <td>Industry: 12-18 mo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Active Customer Rate</strong></td>
+                        <td>13.9%</td>
+                        <td><span class="status-badge fair">Fair</span></td>
+                        <td>Industry: 20-30%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transaction Growth</strong></td>
+                        <td>111% YoY</td>
+                        <td><span class="status-badge excellent">Excellent</span></td>
+                        <td>Industry: 30-50%</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Growth</strong></td>
+                        <td>126% CAGR</td>
+                        <td><span class="status-badge excellent">Excellent</span></td>
+                        <td>Industry: 40-60%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 8: Product Performance -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">8</div>
+            <h2>Product Performance</h2>
+            <h3>13 Active Products Across Multiple Categories</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px;">
+                <div>
+                    <h3 style="color: #1e3c72;">Core Banking Products</h3>
+                    <ul style="line-height: 2; font-size: 18px; margin-top: 15px;">
+                        <li>Digital & Physical Cards</li>
+                        <li>Direct Deposit</li>
+                        <li>Cash Add Services</li>
+                        <li>User Transfers (P2P)</li>
+                        <li>Cash-back Rewards</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: #1e3c72;">Value-Added Services</h3>
+                    <ul style="line-height: 2; font-size: 18px; margin-top: 15px;">
+                        <li>International Transfers</li>
+                        <li>Mobile Top-ups</li>
+                        <li>Gift Cards</li>
+                        <li>Insurance Products</li>
+                        <li>Food Delivery Integration</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-top: 30px;">
+                <div>
+                    <h3 style="color: #1e3c72;">Growth & Loyalty</h3>
+                    <ul style="line-height: 2; font-size: 18px; margin-top: 15px;">
+                        <li>Referral Program</li>
+                        <li>Credit Building (US Shopping)</li>
+                        <li>Bambu Pay Platform</li>
+                    </ul>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-description">Product Portfolio Value</div>
+                    <div class="metric-value-large">$3.3B+</div>
+                    <p style="color: #666; margin-top: 10px;">Total Transaction Volume</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Geographic Expansion -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">9</div>
+            <h2>Geographic Presence</h2>
+            <div class="executive-summary">
+                <h3>Current Operations: 6 Countries</h3>
+                <p style="margin: 20px 0;">Serving unbanked and underbanked communities across North and Central America with plans for significant LATAM expansion.</p>
+            </div>
+            <div class="kpi-grid" style="margin-top: 40px;">
+                <div class="kpi-card">
+                    <div class="kpi-value">6</div>
+                    <div class="kpi-label">Countries Operating</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">929K+</div>
+                    <div class="kpi-label">Total Customers</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">$377M+</div>
+                    <div class="kpi-label">Cross-border Volume</div>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h3>Expansion Roadmap</h3>
+                <p>Planned expansion into 6 additional LATAM markets by Q3 2027, targeting 240M+ population with 82M+ unbanked individuals.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: 2025 Strategic Initiatives -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">10</div>
+            <h2>2025 Strategic Initiatives</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2025 - Q1 2026</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Lending & Credit Launch</div>
+                        <div class="timeline-description">
+                            • Installment loans<br>
+                            • Business loans<br>
+                            • Auto loans<br>
+                            • Buy Now, Pay Later (BNPL)<br>
+                            • Business credit cards
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Payments & Transfers Enhancement</div>
+                        <div class="timeline-description">
+                            • P2P/P2B real-time payments<br>
+                            • Early ACH access<br>
+                            • Visa Direct domestic & cross-border
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2025 - Q3 2027</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">LATAM Expansion</div>
+                        <div class="timeline-description">
+                            • México & Colombia (Q4 2025)<br>
+                            • Honduras (Q4 2026)<br>
+                            • Guatemala, Nicaragua, El Salvador (2027)<br>
+                            • Crypto wallet integration
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Financial Projections -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">11</div>
+            <h2>Financial Summary & Outlook</h2>
+            <div class="metrics-comparison">
+                <div class="metric-box">
+                    <div class="metric-description">Current Annual Run Rate</div>
+                    <div class="metric-value-large">$13.3M+</div>
+                    <p style="color: #666; margin-top: 10px;">Based on past 12 months</p>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-description">Transaction Volume</div>
+                    <div class="metric-value-large">$3.3B+</div>
+                    <p style="color: #666; margin-top: 10px;">Processed to date</p>
+                </div>
+            </div>
+            <div class="revenue-grid" style="margin-top: 40px;">
+                <div class="revenue-card">
+                    <div class="revenue-amount">111%</div>
+                    <div class="revenue-label">Transaction Growth (Q4 2023 - Q2 2025)</div>
+                </div>
+                <div class="revenue-card">
+                    <div class="revenue-amount">126%</div>
+                    <div class="revenue-label">Customer CAGR (Q1 2022 - Q2 2025)</div>
+                </div>
+            </div>
+            <div class="executive-summary" style="margin-top: 40px;">
+                <h3>Investment Opportunity</h3>
+                <ul>
+                    <li>Series E funding round: $30M-$50M</li>
+                    <li>Pre-money valuation: $25M</li>
+                    <li>10% annual preferred return</li>
+                    <li>Target closing: October 31, 2025</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Key Takeaways -->
+        <div class="slide">
+            <div class="date-stamp">September 2025</div>
+            <div class="slide-number">12</div>
+            <h2>Key Takeaways</h2>
+            <div class="executive-summary">
+                <h3>Business Performance Highlights</h3>
+                <ul>
+                    <li><strong>Strong Customer Growth:</strong> 929K+ customers with 410% growth since Q1 2022</li>
+                    <li><strong>Robust Transaction Volume:</strong> $3.3B+ processed with 111% growth rate</li>
+                    <li><strong>Efficient Operations:</strong> $50.79 CAC with 6.1-month payback period</li>
+                    <li><strong>Diversified Revenue:</strong> 13 products across multiple categories</li>
+                    <li><strong>Geographic Expansion:</strong> Operating in 6 countries with LATAM expansion planned</li>
+                    <li><strong>Clear Roadmap:</strong> Lending, payments enhancement, and international growth initiatives</li>
+                </ul>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <h3 style="color: #1e3c72; font-size: 32px;">Building the Future of Financial Inclusion</h3>
+                <p style="font-size: 20px; color: #666; margin-top: 20px;">Serving 240M+ population across LATAM by 2027</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

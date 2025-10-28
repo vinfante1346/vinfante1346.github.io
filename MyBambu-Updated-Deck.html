@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu - Investor Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar Navigation */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 0;
+            box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #4a90e2;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #a8b2d1;
+            opacity: 0.9;
+        }
+
+        .nav-section {
+            margin: 1.5rem 0;
+        }
+
+        .nav-section-title {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64ffda;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.875rem 1.5rem 0.875rem 2rem;
+            color: #ccd6f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            border-left-color: #64ffda;
+            padding-left: 2.25rem;
+        }
+
+        .nav-link.active {
+            background: rgba(74, 144, 226, 0.15);
+            color: #4a90e2;
+            border-left-color: #4a90e2;
+            font-weight: 600;
+        }
+
+        .nav-link .section-num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+            color: #64ffda;
+        }
+
+        .nav-link.active .section-num {
+            background: #4a90e2;
+            color: #fff;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 0;
+            max-width: calc(100vw - 320px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #fff;
+            padding: 4rem 3rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: #64ffda;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #64ffda;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Section Styles */
+        .section {
+            background: #fff;
+            padding: 3rem;
+            margin: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            scroll-margin-top: 20px;
+        }
+
+        .section h2 {
+            font-size: 2.25rem;
+            color: #0f2027;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #4a90e2;
+            font-weight: 700;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: #203a43;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section h4 {
+            font-size: 1.2rem;
+            color: #2c5364;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: #4a5568;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .section ul, .section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section li {
+            margin-bottom: 0.75rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .section strong {
+            color: #0f2027;
+            font-weight: 600;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .info-box.blue {
+            background: #ebf5ff;
+            border-color: #4a90e2;
+        }
+
+        .info-box.green {
+            background: #f0fdf4;
+            border-color: #64ffda;
+        }
+
+        .info-box.yellow {
+            background: #fffbeb;
+            border-color: #fbbf24;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: #fff;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight {
+            color: #d97706;
+            font-weight: 700;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Checkmarks */
+        .checkmark {
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .crossmark {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 280px;
+            }
+
+            .main-content {
+                margin-left: 280px;
+                max-width: calc(100vw - 280px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100vw;
+            }
+
+            .section {
+                margin: 1rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(100, 255, 218, 0.3);
+            border-radius: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 255, 218, 0.5);
+        }
+
+        /* Two Column Grid */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>MyBambu</h1>
+                <p>Investor Pitch Deck</p>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">MyBambu Today</div>
+                <a href="#overview" class="nav-link active">
+                    <span class="section-num">1</span>Platform Overview
+                </a>
+                <a href="#opportunity" class="nav-link">
+                    <span class="section-num">2</span>The Opportunity
+                </a>
+                <a href="#traction" class="nav-link">
+                    <span class="section-num">3</span>Current Traction
+                </a>
+                <a href="#market" class="nav-link">
+                    <span class="section-num">4</span>Market Opportunity
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Competitive Advantages</div>
+                <a href="#infrastructure" class="nav-link">
+                    <span class="section-num">5</span>Modern Infrastructure
+                </a>
+                <a href="#technical" class="nav-link">
+                    <span class="section-num">6</span>Technical Advantage
+                </a>
+                <a href="#payment-strategy" class="nav-link">
+                    <span class="section-num">7</span>Multi-Rail Payments
+                </a>
+                <a href="#ai-operations" class="nav-link">
+                    <span class="section-num">8</span>AI-Powered Operations
+                </a>
+                <a href="#modular" class="nav-link">
+                    <span class="section-num">9</span>Modular Banking
+                </a>
+                <a href="#ecosystem" class="nav-link">
+                    <span class="section-num">10</span>Open Ecosystem
+                </a>
+                <a href="#competition" class="nav-link">
+                    <span class="section-num">11</span>Why We Win
+                </a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Growth Strategy</div>
+                <a href="#business-model" class="nav-link">
+                    <span class="section-num">12</span>Business Model
+                </a>
+                <a href="#roadmap" class="nav-link">
+                    <span class="section-num">13</span>Product Roadmap
+                </a>
+                <a href="#gtm" class="nav-link">
+                    <span class="section-num">14</span>Go-to-Market
+                </a>
+            </div>
+
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>MyBambu</h1>
+                <p class="tagline">Modern Banking Platform: Real-time Rails + AI Operations</p>
+
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">$13.8M</div>
+                        <div class="stat-label">2025 Revenue</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">607K</div>
+                        <div class="stat-label">Funded Customers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">+445%</div>
+                        <div class="stat-label">Projected Growth</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">$75.3M</div>
+                        <div class="stat-label">2026 Forecast</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Platform Overview -->
+            <section id="overview" class="section">
+                <h2>1. MyBambu Platform Overview</h2>
+                <p><strong>Modern banking platform serving international families and blue-collar foreign-born individuals with next-generation payment infrastructure</strong></p>
+
+                <h3>What We've Built</h3>
+                <ul>
+                    <li><strong>Multi-Rail Payment Infrastructure:</strong> ACH, RTP/FedNow, Stablecoin (USDC), and NFC (Apple/Google Pay)</li>
+                    <li><strong>AI-Powered Operations:</strong> 70% automated customer support, 10x faster product development</li>
+                    <li><strong>Modular Banking Architecture:</strong> Switch between FIS, Galileo, and other core banking partners without downtime</li>
+                    <li><strong>Modern Tech Stack:</strong> React Native mobile apps, NestJS microservices, Atlas Security (proprietary)</li>
+                    <li><strong>24/7 Real-Time Settlements:</strong> Instant domestic (RTP) and cross-border (USDC) payments</li>
+                    <li><strong>Multi-language AI Support:</strong> Instant support across all languages for immigrant communities</li>
+                </ul>
+
+                <h3>Our Differentiation</h3>
+                <div class="info-box green">
+                    <strong>Built on 2025 Infrastructure, Not 1973:</strong> While traditional banks are stuck on legacy SWIFT (1973) and ACH (1974) rails, we're building natively on modern infrastructure: RTP/FedNow (2023), stablecoins (Circle/USDC), and NFC touchless payments. This gives us 100x cost advantages and instant settlement capabilities competitors literally cannot match without complete rebuilds.
+                </div>
+
+                <h3>Core Customer Base</h3>
+                <ul>
+                    <li><strong>International Families:</strong> Cross-border money transfers in minutes instead of days</li>
+                    <li><strong>Blue-Collar Foreign-Born Workers:</strong> Instant remittances at 10x lower cost than traditional banks</li>
+                    <li><strong>Underbanked Communities:</strong> Modern banking services without the fees and barriers of traditional banks</li>
+                </ul>
+            </section>
+
+            <!-- 2. The Opportunity -->
+            <section id="opportunity" class="section">
+                <h2>2. The Opportunity</h2>
+                <p><strong>Legacy infrastructure creates massive market opportunity for modern solutions</strong></p>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h3>Speed & Accessibility Gap</h3>
+                        <ul>
+                            <li><strong>Market need:</strong> ACH takes 1-3 days, wires 3-5 days internationally - customers demand instant</li>
+                            <li><strong>24/7 economy:</strong> Traditional banking rails only operate 9-5 M-F, leaving massive gaps</li>
+                            <li><strong>Underserved segment:</strong> International families and blue-collar foreign-born workers need instant cross-border transfers, not next-day remittances</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>Cost & Modernization Gap</h3>
+                        <ul>
+                            <li><strong>Pricing advantage:</strong> Cross-border payments cost $25-45 per transaction - we offer 10x savings ($2-5)</li>
+                            <li><strong>Infrastructure transition:</strong> 50-year-old infrastructure (SWIFT, ACH) creates opening for modern alternatives</li>
+                            <li><strong>Market timing:</strong> RTP/FedNow launched July 2023 - we're first movers on modern rails</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box blue">
+                    <strong>Perfect Timing:</strong> The Federal Reserve launched RTP/FedNow in July 2023, creating the infrastructure for instant payments. We're building on this modern foundation while incumbents spend years migrating from legacy systems. By 2026-2028 when they complete their migrations, we'll have 3-5 years of product advantages and network effects.
+                </div>
+            </section>
+
+            <!-- 3. Current Traction -->
+            <section id="traction" class="section">
+                <h2>3. Current Traction</h2>
+                <p><strong>Strong growth across all key metrics demonstrates product-market fit</strong></p>
+
+                <h3>User Base Milestones</h3>
+                <ul>
+                    <li><strong>2.2M Total Accounts Created</strong> - Massive top-of-funnel built through word-of-mouth and community partnerships</li>
+                    <li><strong>607K Funded Customers</strong> - 27.6% conversion rate from signup to active</li>
+                    <li><strong>125K Monthly Active Users</strong> - 2025 average, with peak of 129K in July 2025</li>
+                    <li><strong>1.6M Prospect Pool</strong> - Unfunded accounts ready for reactivation campaigns</li>
+                    <li><strong>21.3% Peak Engagement Rate</strong> - Of funded customers actively using platform</li>
+                </ul>
+
+                <h3>Revenue Growth</h3>
+                <ul>
+                    <li><strong>$13.8M Revenue (2025)</strong> - Actual achieved, up from startup phase</li>
+                    <li><strong>Monthly Revenue Range:</strong> $896K-$1.89M throughout 2025</li>
+                    <li><strong>Peak Performance:</strong> December 2025 hit $1.89M monthly revenue</li>
+                    <li><strong>445% Projected Growth:</strong> $13.8M (2025) → $75.3M (2026)</li>
+                </ul>
+
+                <h3>Product Diversification</h3>
+                <ul>
+                    <li><strong>9 Revenue Streams</strong> - No single point of failure</li>
+                    <li><strong>Top 3 Products:</strong> Card/Interchange (37%), FX Fees (17%), Remittances (16%)</li>
+                    <li><strong>Fastest Growing:</strong> LatAm Products (+1,567% projected), Unsecured Loans (+806%)</li>
+                    <li><strong>New Product Launches 2026:</strong> Business Products ($5.2M), Mortgages + Vehicles ($0.9M)</li>
+                </ul>
+
+                <h3>Margin Expansion</h3>
+                <div class="info-box green">
+                    <p><strong>Path to Profitability:</strong></p>
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>5.2% Gross Margin (2025)</strong> - Early stage investment phase</li>
+                        <li><strong>59.9% Gross Margin (2026 forecast)</strong> - 11.5x improvement as we scale</li>
+                        <li><strong>AI operations enable scale without proportional cost increases</strong></li>
+                        <li><strong>Unit economics improve as we add higher-margin products (loans, business services)</strong></li>
+                    </ul>
+                </div>
+
+                <div class="info-box blue">
+                    <strong>What This Proves:</strong> We've validated product-market fit with international families and underbanked communities - a massive, underserved market. Our customers save $20-40 per international transfer and get money to family in minutes instead of days. Strong seasonality (peaks in July and December) demonstrates deep engagement with our core user base.
+                </div>
+            </section>
+
+            <!-- 4. Market Opportunity -->
+            <section id="market" class="section">
+                <h2>4. Market Opportunity</h2>
+                <p><strong>Legacy payment infrastructure transitioning to modern rails creates massive opportunity</strong></p>
+
+                <h3>Market Timing</h3>
+                <ul>
+                    <li><strong>RTP/FedNow:</strong> Launched July 2023 by Federal Reserve - US banks modernizing now</li>
+                    <li><strong>Stablecoins:</strong> $150B+ market cap, growing 40% annually</li>
+                    <li><strong>Cross-border payments:</strong> $190 trillion market, 95% still on legacy rails</li>
+                    <li><strong>Instant payments:</strong> Growing 25% YoY globally</li>
+                </ul>
+
+                <h3>Total Addressable Market (TAM)</h3>
+                <ul>
+                    <li><strong>$8.2 trillion/year:</strong> US payment transactions</li>
+                    <li><strong>$190 trillion/year:</strong> Cross-border payments</li>
+                    <li><strong>$2+ trillion/year:</strong> Payment processing fees globally</li>
+                    <li><strong>$86 billion/year:</strong> US remittance outflows to LatAm alone</li>
+                </ul>
+
+                <h3>Serviceable Market (SAM)</h3>
+                <ul>
+                    <li><strong>220M+:</strong> Digital banking users (US)</li>
+                    <li><strong>60M+:</strong> Gig economy workers needing instant pay</li>
+                    <li><strong>33M+:</strong> SMBs needing instant settlements</li>
+                    <li><strong>50M+ households:</strong> International remittance senders</li>
+                    <li><strong>65M people, $2.8T purchasing power:</strong> Hispanic/Latino banking market (US)</li>
+                </ul>
+
+                <h3>Our Market Performance (2025)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Current</th>
+                            <th>Market Size</th>
+                            <th>Penetration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Funded Customers</td>
+                            <td>607K</td>
+                            <td>50M+ addressable households</td>
+                            <td>1.2%</td>
+                        </tr>
+                        <tr>
+                            <td>Revenue</td>
+                            <td>$13.8M</td>
+                            <td>$86B remittance market</td>
+                            <td>0.016%</td>
+                        </tr>
+                        <tr>
+                            <td>Growth Runway</td>
+                            <td colspan="3">10x growth still only 12% penetration of target market</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box blue">
+                    <strong>Our Core Market:</strong> We serve underserved communities that traditional banks ignore or overcharge. Immigrant families pay $25-45 for wire transfers and wait 3-5 days. With MyBambu's stablecoin rails, they pay $2-5 and money arrives in 10 minutes. This is a massive, growing market with 50M+ households in the US alone, representing $86B in annual remittance flows to Latin America.
+                </div>
+            </section>
+
+            <!-- 5. Modern Infrastructure & Architecture -->
+            <section id="infrastructure" class="section">
+                <h2>5. Modern Infrastructure & Architecture</h2>
+                <p><strong>Built on 2026 cloud-native architecture that enables rapid scaling and deployment</strong></p>
+
+                <div class="info-box green">
+                    <strong>Modern by Design:</strong> While traditional banks run on mainframes from the 1970s and most fintechs use monolithic architectures, we've built MyBambu on cutting-edge cloud-native infrastructure from day one. This isn't just about technology - it's about speed, scalability, security, and the ability to innovate faster than any competitor.
+                </div>
+
+                <h3>Cloud-Native Microservices Architecture</h3>
+                <p>Modern, distributed system design that enables independent scaling and deployment:</p>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h4>Traditional Banks</h4>
+                        <ul>
+                            <li><strong>Monolithic Systems:</strong> One massive application, all or nothing</li>
+                            <li><strong>Tight Coupling:</strong> Change one thing, risk breaking everything</li>
+                            <li><strong>Slow Deployments:</strong> Monthly releases, extensive testing</li>
+                            <li><strong>Single Points of Failure:</strong> System goes down, everything stops</li>
+                            <li><strong>Cannot Scale Independently:</strong> Over-provision entire system</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>MyBambu Microservices</h4>
+                        <ul>
+                            <li><strong>Independent Services:</strong> Payments, accounts, cards, loans - all separate</li>
+                            <li><strong>Loose Coupling:</strong> Update one service without affecting others</li>
+                            <li><strong>Continuous Deployment:</strong> Multiple releases per day</li>
+                            <li><strong>High Availability:</strong> Service issues isolated, auto-failover</li>
+                            <li><strong>Elastic Scaling:</strong> Scale only what needs capacity</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>AWS Cloud Infrastructure</h3>
+                <p>Enterprise-grade cloud infrastructure with global reach and 99.99% uptime:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>AWS Service</th>
+                            <th>Business Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Compute</td>
+                            <td>ECS/Fargate (containerized)</td>
+                            <td>Auto-scaling, zero server management, cost-efficient</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>RDS (PostgreSQL), DynamoDB</td>
+                            <td>Automated backups, multi-region replication, 99.99% uptime</td>
+                        </tr>
+                        <tr>
+                            <td>Caching</td>
+                            <td>ElastiCache (Redis)</td>
+                            <td>Sub-millisecond response times, reduced database load</td>
+                        </tr>
+                        <tr>
+                            <td>Message Queue</td>
+                            <td>SQS, SNS</td>
+                            <td>Asynchronous processing, decoupled services, guaranteed delivery</td>
+                        </tr>
+                        <tr>
+                            <td>API Gateway</td>
+                            <td>AWS API Gateway</td>
+                            <td>Rate limiting, authentication, monitoring, DDoS protection</td>
+                        </tr>
+                        <tr>
+                            <td>File Storage</td>
+                            <td>S3</td>
+                            <td>Unlimited scalability, 99.999999999% durability</td>
+                        </tr>
+                        <tr>
+                            <td>CDN</td>
+                            <td>CloudFront</td>
+                            <td>Global content delivery, reduced latency, lower costs</td>
+                        </tr>
+                        <tr>
+                            <td>Security</td>
+                            <td>WAF, Shield, KMS, Secrets Manager</td>
+                            <td>DDoS protection, encryption at rest/transit, secure credentials</td>
+                        </tr>
+                        <tr>
+                            <td>Monitoring</td>
+                            <td>CloudWatch, X-Ray</td>
+                            <td>Real-time metrics, distributed tracing, alerting</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>CI/CD Pipeline: Ship Code Multiple Times Per Day</h3>
+                <p>Automated deployment pipeline that enables rapid, safe releases:</p>
+
+                <div class="info-box blue">
+                    <strong>Modern DevOps Flow:</strong>
+                    <ol style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Developer commits code</strong> → Git push to GitHub</li>
+                        <li><strong>Automated tests run</strong> → Unit, integration, security scans</li>
+                        <li><strong>Docker container built</strong> → Consistent environment across dev/staging/prod</li>
+                        <li><strong>Deployed to staging</strong> → Automatic deployment for QA testing</li>
+                        <li><strong>Production deployment</strong> → Blue-green deployment (zero downtime)</li>
+                        <li><strong>Monitoring & alerts</strong> → Automatic rollback if errors detected</li>
+                    </ol>
+                    <strong>Total time: 15-30 minutes from code commit to production</strong>
+                </div>
+
+                <h4>Our CI/CD Stack</h4>
+                <ul>
+                    <li><strong>Version Control:</strong> GitHub (enterprise) with branch protection, code review requirements</li>
+                    <li><strong>CI/CD Platform:</strong> GitHub Actions / AWS CodePipeline for automated builds</li>
+                    <li><strong>Containerization:</strong> Docker for consistent deployments across environments</li>
+                    <li><strong>Container Registry:</strong> AWS ECR (Elastic Container Registry)</li>
+                    <li><strong>Orchestration:</strong> AWS ECS/Fargate for container management</li>
+                    <li><strong>Infrastructure as Code:</strong> Terraform / AWS CDK for version-controlled infrastructure</li>
+                    <li><strong>Testing:</strong> Jest, Cypress (automated unit/integration/E2E tests)</li>
+                    <li><strong>Security Scanning:</strong> Snyk, AWS Inspector for vulnerability detection</li>
+                    <li><strong>Deployment Strategy:</strong> Blue-green deployments for zero-downtime releases</li>
+                </ul>
+
+                <h3>Security-First Architecture</h3>
+                <p>Enterprise-grade security built into every layer:</p>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h4>Network Security</h4>
+                        <ul>
+                            <li><strong>VPC Isolation:</strong> Private subnets for databases and services</li>
+                            <li><strong>WAF & Shield:</strong> DDoS protection, SQL injection prevention</li>
+                            <li><strong>TLS 1.3:</strong> Encrypted traffic in transit (API, web, mobile)</li>
+                            <li><strong>Security Groups:</strong> Firewall rules limiting service access</li>
+                            <li><strong>Private Link:</strong> Secure connections to banking partners</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>Application Security</h4>
+                        <ul>
+                            <li><strong>Encryption at Rest:</strong> All data encrypted with AWS KMS</li>
+                            <li><strong>Secrets Management:</strong> No hardcoded credentials, AWS Secrets Manager</li>
+                            <li><strong>OAuth 2.0 / JWT:</strong> Modern authentication and authorization</li>
+                            <li><strong>PCI DSS Compliance:</strong> Card data handling standards</li>
+                            <li><strong>SOC 2 Type II:</strong> Security and availability audits</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Observability & Monitoring</h3>
+                <p>Real-time visibility into system health and performance:</p>
+                <ul>
+                    <li><strong>Application Performance Monitoring (APM):</strong> DataDog / New Relic for real-time metrics</li>
+                    <li><strong>Distributed Tracing:</strong> AWS X-Ray to track requests across microservices</li>
+                    <li><strong>Centralized Logging:</strong> CloudWatch Logs / ELK stack for debugging</li>
+                    <li><strong>Error Tracking:</strong> Sentry for exception monitoring and alerting</li>
+                    <li><strong>Uptime Monitoring:</strong> PagerDuty for 24/7 incident response</li>
+                    <li><strong>Custom Dashboards:</strong> Real-time business metrics (transactions, revenue, active users)</li>
+                    <li><strong>Automated Alerts:</strong> Slack/SMS notifications for critical issues</li>
+                </ul>
+
+                <h3>Disaster Recovery & Business Continuity</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Strategy</th>
+                            <th>RTO/RPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Database</td>
+                            <td>Multi-AZ with automated failover, daily backups</td>
+                            <td>RTO: &lt;5 min, RPO: &lt;5 min</td>
+                        </tr>
+                        <tr>
+                            <td>Application Services</td>
+                            <td>Multi-region deployment, auto-scaling groups</td>
+                            <td>RTO: &lt;1 min, RPO: 0</td>
+                        </tr>
+                        <tr>
+                            <td>File Storage</td>
+                            <td>S3 cross-region replication, versioning enabled</td>
+                            <td>RTO: &lt;1 min, RPO: 0</td>
+                        </tr>
+                        <tr>
+                            <td>Disaster Recovery</td>
+                            <td>Hot standby in secondary region (us-west-2)</td>
+                            <td>RTO: &lt;15 min, RPO: &lt;5 min</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Cost Optimization & Efficiency</h3>
+                <div class="info-box green">
+                    <strong>Smart Cloud Economics:</strong>
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Auto-Scaling:</strong> Scale down during low traffic (nights/weekends), save 40-60% on compute</li>
+                        <li><strong>Spot Instances:</strong> Use spare AWS capacity for non-critical workloads at 70% discount</li>
+                        <li><strong>Reserved Instances:</strong> 1-year commitments for 30-40% savings on predictable workloads</li>
+                        <li><strong>Serverless Functions:</strong> Lambda for sporadic tasks, pay only for execution time</li>
+                        <li><strong>S3 Intelligent-Tiering:</strong> Automatically move old data to cheaper storage</li>
+                        <li><strong>Result:</strong> Supporting 933K projected customers at $0.50-1.00 per user/month in infrastructure costs</li>
+                    </ul>
+                </div>
+
+                <h3>Why This Infrastructure Matters</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Traditional Banks</th>
+                            <th>MyBambu</th>
+                            <th>Competitive Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Deployment Speed</td>
+                            <td>Monthly releases</td>
+                            <td>Multiple times per day</td>
+                            <td class="highlight">30x faster innovation</td>
+                        </tr>
+                        <tr>
+                            <td>System Reliability</td>
+                            <td>95-98% uptime</td>
+                            <td>99.99% uptime</td>
+                            <td class="highlight">10x better availability</td>
+                        </tr>
+                        <tr>
+                            <td>Scale to 1M Users</td>
+                            <td>12-24 months, $10M+ investment</td>
+                            <td>Instant, auto-scaling</td>
+                            <td class="highlight">Zero infrastructure delays</td>
+                        </tr>
+                        <tr>
+                            <td>Security Response</td>
+                            <td>Days to patch vulnerabilities</td>
+                            <td>Hours to deploy fixes</td>
+                            <td class="highlight">10x faster security response</td>
+                        </tr>
+                        <tr>
+                            <td>Infrastructure Cost</td>
+                            <td>$10-20 per user/month</td>
+                            <td>$0.50-1.00 per user/month</td>
+                            <td class="highlight">95% cost reduction</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box blue">
+                    <strong>Built for 2026 and Beyond:</strong> Our infrastructure isn't just modern - it's future-proof. While competitors are still migrating from mainframes to cloud, we're already running on cutting-edge serverless, containerized, AI-augmented architecture. We can scale to 10M users without changing our infrastructure, deploy new features in minutes not months, and respond to security threats in real-time. This isn't just a technical advantage - it's a business moat that compounds over time.
+                </div>
+            </section>
+
+            <!-- 6. Technical Infrastructure Advantage -->
+            <section id="technical" class="section">
+                <h2>6. Technical Infrastructure Advantage</h2>
+                <p><strong>Why our technology stack is a competitive moat</strong></p>
+
+                <h3>Legacy vs. Modern Payment Infrastructure Cost Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payment Type</th>
+                            <th>Legacy Rail</th>
+                            <th>Legacy Cost</th>
+                            <th>Modern Rail</th>
+                            <th>Modern Cost</th>
+                            <th>Time Saved</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>In-person</td>
+                            <td>Physical card + PIN</td>
+                            <td>$0.25</td>
+                            <td>NFC (Apple/Google Pay)</td>
+                            <td>$0.15</td>
+                            <td>Faster checkout</td>
+                        </tr>
+                        <tr>
+                            <td>Domestic batch</td>
+                            <td>ACH (1974)</td>
+                            <td>$0.50</td>
+                            <td>ACH optimized</td>
+                            <td>$0.20</td>
+                            <td>Same speed</td>
+                        </tr>
+                        <tr>
+                            <td>Domestic instant</td>
+                            <td>Wire ($25)</td>
+                            <td>$25</td>
+                            <td>RTP/FedNow (2023)</td>
+                            <td>$0.25</td>
+                            <td class="highlight">1-3 days → 15 sec</td>
+                        </tr>
+                        <tr>
+                            <td>Cross-border</td>
+                            <td>SWIFT (1973)</td>
+                            <td>$25-45</td>
+                            <td>USDC/Circle (2023)</td>
+                            <td>$2-5</td>
+                            <td class="highlight">3-5 days → 10 min</td>
+                        </tr>
+                        <tr>
+                            <td>High-value</td>
+                            <td>Wire</td>
+                            <td>$45</td>
+                            <td>Blockchain</td>
+                            <td>$5-10</td>
+                            <td class="highlight">3-5 days → 1 hour</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box green">
+                    <strong>Cost Savings for Our Customers:</strong>
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Domestic instant transfers:</strong> Save $24.75 per transaction (100x cheaper)</li>
+                        <li><strong>Cross-border remittances:</strong> Save $20-40 per transaction (10x cheaper)</li>
+                        <li><strong>High-value transfers:</strong> Save $35-40 per transaction (9x cheaper)</li>
+                        <li><strong>Average savings for immigrant families:</strong> $500-1,000/year on remittances alone</li>
+                    </ul>
+                </div>
+
+                <h3>Proprietary Systems Built In-House</h3>
+
+                <h4>Atlas Security Services</h4>
+                <p>Enterprise-grade security protecting all payment rails:</p>
+                <ul>
+                    <li><strong>Universal Protection:</strong> Works across ALL payment rails seamlessly (ACH, RTP, USDC, NFC)</li>
+                    <li><strong>Enterprise-Grade Features:</strong> Authentication, fraud detection, AML/KYC compliance, rate limiting</li>
+                    <li><strong>AI-Accelerated Development:</strong> Built in 6 weeks with AI assistance (vs. 6 months traditional)</li>
+                    <li><strong>Technical Implementation:</strong> HMAC signatures, velocity checks, real-time risk scoring</li>
+                    <li><strong>Performance:</strong> PCI DSS compliant, 5-10ms overhead per transaction</li>
+                    <li><strong>Scalability:</strong> Handles 933K projected customers without degradation</li>
+                </ul>
+
+                <h4>MyBambu CRM & Case Management System</h4>
+                <p>Custom-built to replace Salesforce, saving $1M+ annually:</p>
+                <ul>
+                    <li><strong>Cost Savings:</strong> $1M+ annual Salesforce licensing eliminated (60% reduction in CRM costs)</li>
+                    <li><strong>Built with AI:</strong> NestJS backend + Angular frontend, developed 3-5x faster with AI assistance</li>
+                    <li><strong>Multi-Department Case Management:</strong> Unified ticketing across support, compliance, fraud, operations</li>
+                    <li><strong>Direct API Integration:</strong> Native integration with banking platform, no Salesforce API limits</li>
+                    <li><strong>AI-Powered Features:</strong> Automated case routing, sentiment analysis, predictive analytics, chatbots</li>
+                    <li><strong>Live Customer Communication:</strong> Real-time messaging built into case management</li>
+                    <li><strong>Quality Assurance System:</strong> Built-in QA workflows and escalation paths</li>
+                    <li><strong>Performance:</strong> 20% improvement in case resolution time vs. Salesforce baseline</li>
+                </ul>
+
+                <div class="info-box green">
+                    <strong>Why This Matters:</strong> Building proprietary systems in-house gives us several advantages:
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Cost Control:</strong> $1M+ annual savings on Salesforce alone</li>
+                        <li><strong>Perfect Fit:</strong> Tailored exactly to our workflows, not generic enterprise software</li>
+                        <li><strong>Faster Innovation:</strong> Add features in days, not waiting for vendor roadmaps</li>
+                        <li><strong>Data Ownership:</strong> Complete control over customer data and integrations</li>
+                        <li><strong>Competitive Advantage:</strong> Custom tools competitors can't replicate</li>
+                    </ul>
+                </div>
+
+                <h3>Modern Tech Stack</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Technology</th>
+                            <th>Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mobile Apps</td>
+                            <td>React Native</td>
+                            <td>Single codebase for iOS & Android, faster updates</td>
+                        </tr>
+                        <tr>
+                            <td>Backend Services</td>
+                            <td>NestJS microservices</td>
+                            <td>Modular, scalable, easy to maintain and update</td>
+                        </tr>
+                        <tr>
+                            <td>Security Layer</td>
+                            <td>Atlas Security (proprietary)</td>
+                            <td>Custom-built for multi-rail architecture</td>
+                        </tr>
+                        <tr>
+                            <td>Payment Rails</td>
+                            <td>Multi-rail routing engine</td>
+                            <td>Optimal cost/speed for every transaction</td>
+                        </tr>
+                        <tr>
+                            <td>AI/ML</td>
+                            <td>Claude, GPT-4, custom models</td>
+                            <td>Support automation, fraud detection, development acceleration</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>Distributed, multi-region</td>
+                            <td>99.99% uptime, instant failover</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Infrastructure Advantages Over Competitors</h3>
+                <div class="two-col-grid">
+                    <div>
+                        <h4>Traditional Banks</h4>
+                        <ul>
+                            <li><strong>Monolithic legacy systems</strong> - Can't easily add new features</li>
+                            <li><strong>Single vendor lock-in</strong> - Stuck with one core banking provider</li>
+                            <li><strong>Legacy rails only</strong> - SWIFT and ACH, no modern alternatives</li>
+                            <li><strong>Manual security</strong> - Compliance teams, slow response to threats</li>
+                            <li><strong>Years to upgrade</strong> - $100M+ and 3-5 years for modernization</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>MyBambu</h4>
+                        <ul>
+                            <li><strong>Microservices architecture</strong> - Add features independently</li>
+                            <li><strong>Multi-vendor flexibility</strong> - Switch providers in hours</li>
+                            <li><strong>All payment rails</strong> - Legacy + modern, smart routing</li>
+                            <li><strong>Automated security</strong> - Real-time AI-powered protection</li>
+                            <li><strong>Continuous deployment</strong> - Ship updates multiple times per day</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box blue">
+                    <strong>Technical Moat:</strong> Our infrastructure isn't just faster and cheaper - it's fundamentally different. We built on 2023 technology (RTP, USDC, NFC) while competitors are stuck on 1970s rails (SWIFT, ACH). They can't simply "add" modern rails to their legacy systems - they'd need to rebuild everything, costing billions and taking years. By then, we'll be 5+ years ahead with network effects they can never overcome.
+                </div>
+            </section>
+
+            <!-- 7. Multi-Rail Payment Strategy -->
+            <section id="payment-strategy" class="section">
+                <h2>7. Multi-Rail Payment Strategy</h2>
+                <p><strong>Moving from legacy infrastructure to modern payment rails</strong></p>
+
+                <h3>The Transformation</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Legacy Rails (Old)</th>
+                            <th>Modern Rails (New)</th>
+                            <th>Our Advantage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ACH (1974)</td>
+                            <td>RTP/FedNow (2023)</td>
+                            <td><span class="checkmark">✓</span> Both</td>
+                        </tr>
+                        <tr>
+                            <td>SWIFT (1973)</td>
+                            <td>Stablecoin/USDC (2023)</td>
+                            <td><span class="checkmark">✓</span> Both</td>
+                        </tr>
+                        <tr>
+                            <td>Wire transfers</td>
+                            <td>Blockchain settlement</td>
+                            <td><span class="checkmark">✓</span> Both</td>
+                        </tr>
+                        <tr>
+                            <td>Single rail only</td>
+                            <td>Multi-rail routing</td>
+                            <td><span class="checkmark">✓</span> Smart routing</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Four Modern Payment Rails</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rail Type</th>
+                            <th>Cost</th>
+                            <th>Speed</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Traditional ACH</td>
+                            <td>$0.20/txn</td>
+                            <td>1-3 days</td>
+                            <td>Non-urgent batch payments</td>
+                        </tr>
+                        <tr>
+                            <td>RTP/FedNow</td>
+                            <td>$0.05-0.25/txn</td>
+                            <td>&lt;15 seconds</td>
+                            <td>Instant domestic transfers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>USDC/Circle Network</strong></td>
+                            <td>$2-5/txn</td>
+                            <td>&lt;10-30 minutes</td>
+                            <td>Cross-border remittances via Circle's LatAm payout network</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blockchain Rails</strong> (Stellar, Lightning)</td>
+                            <td>$0.01-0.50/txn</td>
+                            <td>&lt;5 seconds</td>
+                            <td>Micropayments, crypto-native transfers, alternative corridors</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Deep Dive: Circle/USDC Network for Cross-Border Payments</h3>
+                <p>Circle provides enterprise infrastructure for stablecoin-based remittances with direct banking partnerships:</p>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h4>Circle's Advantages</h4>
+                        <ul>
+                            <li><strong>Licensed in all 50 US states</strong> - Fully regulated and compliant</li>
+                            <li><strong>$40B+ USDC market cap</strong> - 2nd largest stablecoin, audited monthly</li>
+                            <li><strong>LatAm Banking Partnerships:</strong> Direct connections to Mexican, Brazilian, Dominican, Colombian banks</li>
+                            <li><strong>Circle Yield:</strong> 4-5% APY on USDC balances (potential high-yield savings product)</li>
+                            <li><strong>Multi-chain support:</strong> Ethereum, Solana, Polygon, Arbitrum, Base (15+ chains)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4>How It Works</h4>
+                        <ol>
+                            <li><strong>Customer deposits USD</strong> in MyBambu</li>
+                            <li><strong>MyBambu mints USDC</strong> via Circle API ($1 fee)</li>
+                            <li><strong>USDC sent to recipient country</strong> via blockchain (minutes)</li>
+                            <li><strong>Circle partner converts USDC → local currency</strong> (MXN, BRL, DOP, COP)</li>
+                            <li><strong>Recipient receives money</strong> in local bank account (10-30 min total)</li>
+                        </ol>
+                        <p><strong>Total cost: $2-5 vs. $25-45 traditional wire</strong></p>
+                    </div>
+                </div>
+
+                <h4>Circle's Cross-Border Network Coverage</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Country/Region</th>
+                            <th>Banking Partners</th>
+                            <th>Settlement Time</th>
+                            <th>Cost to Customer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mexico</td>
+                            <td>Banorte, BBVA Mexico</td>
+                            <td>10-30 minutes</td>
+                            <td>$2-5 (vs. $25-45 wire)</td>
+                        </tr>
+                        <tr>
+                            <td>Brazil</td>
+                            <td>Local exchanges → PIX network</td>
+                            <td>10-30 minutes</td>
+                            <td>$3-5 (vs. $30-50 wire)</td>
+                        </tr>
+                        <tr>
+                            <td>Dominican Republic</td>
+                            <td>Local banking partners</td>
+                            <td>15-45 minutes</td>
+                            <td>$3-5 (vs. $25-40 wire)</td>
+                        </tr>
+                        <tr>
+                            <td>Colombia</td>
+                            <td>Local banking partners</td>
+                            <td>15-45 minutes</td>
+                            <td>$3-5 (vs. $25-40 wire)</td>
+                        </tr>
+                        <tr>
+                            <td>Philippines</td>
+                            <td>Local banking partners</td>
+                            <td>15-45 minutes</td>
+                            <td>$3-5 (vs. $25-45 wire)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box green">
+                    <strong>Real Customer Savings Example:</strong>
+                    <p style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Maria in Miami sends $500 to her family in Mexico every month using MyBambu's Circle/USDC network:</p>
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Traditional wire:</strong> $500 - $35 fee = $465 received (3-5 days)</li>
+                        <li><strong>MyBambu/Circle:</strong> $500 - $3 fee = $497 received (20 minutes)</li>
+                        <li><strong>Annual savings:</strong> ($35 - $3) × 12 = $384/year saved + instant delivery</li>
+                    </ul>
+                </div>
+
+                <h3>Alternative Blockchain Rails</h3>
+                <p>Beyond Circle/USDC, we support additional blockchain rails for specialized use cases:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Blockchain Rail</th>
+                            <th>Cost</th>
+                            <th>Speed</th>
+                            <th>Best For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Stellar (XLM)</strong></td>
+                            <td>&lt;$0.01/txn</td>
+                            <td>3-5 seconds</td>
+                            <td>Micropayments, ultra-low-cost remittances, built for financial institutions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lightning Network (Bitcoin)</strong></td>
+                            <td>&lt;$0.01/txn</td>
+                            <td>Instant</td>
+                            <td>Small remittances ($10-100), Bitcoin holders, near-zero fees</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Polygon (MATIC)</strong></td>
+                            <td>$0.01-0.10/txn</td>
+                            <td>2-5 seconds</td>
+                            <td>Smart contract payments, DeFi integration, programmable money</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box blue">
+                    <strong>Why Multiple Blockchain Rails?</strong> Different corridors and use cases require different solutions:
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Circle/USDC:</strong> Best for large remittances ($200+) to major LatAm countries with bank payout</li>
+                        <li><strong>Stellar:</strong> Best for small remittances ($10-100) where ultra-low fees matter</li>
+                        <li><strong>Lightning:</strong> Best for Bitcoin-native users and micropayments</li>
+                        <li><strong>Polygon:</strong> Best for programmable payments and DeFi integrations</li>
+                    </ul>
+                </div>
+
+                <h3>Smart Routing Engine</h3>
+                <p>Automatically selects optimal rail based on:</p>
+                <ul>
+                    <li><strong>Payment method:</strong> In-person = NFC, Online = RTP/ACH, International = Circle/USDC</li>
+                    <li><strong>Speed:</strong> Urgent = RTP/Circle, Standard = ACH, Instant checkout = NFC</li>
+                    <li><strong>Cost:</strong> Always chooses cheapest option for speed requirement</li>
+                    <li><strong>Destination:</strong> Domestic = RTP, LatAm major corridors = Circle/USDC, Micropayments = Stellar/Lightning</li>
+                    <li><strong>Amount:</strong> Large remittances ($200+) = Circle, Small ($10-100) = Stellar/Lightning</li>
+                    <li><strong>Compliance:</strong> Automatic AML/KYC routing</li>
+                    <li><strong>Fallback:</strong> Legacy rails (SWIFT/Wire) when modern rails unavailable</li>
+                </ul>
+            </section>
+
+            <!-- 8. AI-Powered Operations -->
+            <section id="ai-operations" class="section">
+                <h2>8. AI-Powered Operations</h2>
+                <p><strong>90% more productive across engineering and customer support</strong></p>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h3>AI in Product Development</h3>
+                        <ul>
+                            <li><strong>Code Development:</strong> Claude Code, GitHub Copilot for 3-5x faster feature delivery</li>
+                            <li><strong>Product Design:</strong> AI-assisted UX/UI generation and user flow optimization</li>
+                            <li><strong>Documentation:</strong> Auto-generated technical docs, API specs, compliance reports</li>
+                            <li><strong>Testing & QA:</strong> AI-powered test generation and bug detection</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>AI in Customer Support</h3>
+                        <ul>
+                            <li><strong>Automated Resolution:</strong> AI handles 70% of support cases before human escalation</li>
+                            <li><strong>Instant Responses:</strong> 24/7 AI-powered support across all languages</li>
+                            <li><strong>Smart Routing:</strong> Complex cases automatically routed to specialist agents</li>
+                            <li><strong>Cost Savings:</strong> Support 10x more customers with same team size</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Business Impact</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Function</th>
+                            <th>Traditional</th>
+                            <th>With AI</th>
+                            <th>Cost Savings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Product Development</td>
+                            <td>6-12 months</td>
+                            <td>4-8 weeks</td>
+                            <td class="highlight">70-80%</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Support</td>
+                            <td>30 agents for 10K users</td>
+                            <td>3 agents for 10K users</td>
+                            <td class="highlight">90%</td>
+                        </tr>
+                        <tr>
+                            <td>Documentation</td>
+                            <td>Manual, 40 hrs/week</td>
+                            <td>Auto-generated</td>
+                            <td class="highlight">95%</td>
+                        </tr>
+                        <tr>
+                            <td>Fraud Detection</td>
+                            <td>Rule-based, 3-5 day review</td>
+                            <td>Real-time AI analysis</td>
+                            <td class="highlight">85%</td>
+                        </tr>
+                        <tr>
+                            <td>Compliance & KYC</td>
+                            <td>Manual review, 24-48 hrs</td>
+                            <td>Automated verification, &lt;5 min</td>
+                            <td class="highlight">80%</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-language Support</td>
+                            <td>Hire bilingual agents per language</td>
+                            <td>AI translation across all languages</td>
+                            <td class="highlight">75%</td>
+                        </tr>
+                        <tr>
+                            <td>Predictive Analytics</td>
+                            <td>Quarterly reports, manual analysis</td>
+                            <td>Real-time insights & forecasting</td>
+                            <td class="highlight">90%</td>
+                        </tr>
+                        <tr>
+                            <td>Personalized Marketing</td>
+                            <td>Segment-based campaigns</td>
+                            <td>Individual AI-driven recommendations</td>
+                            <td class="highlight">65%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box green">
+                    <strong>Real-World Examples:</strong>
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Development:</strong> Atlas Security (15K lines) built in 6 weeks with 2 engineers vs. 6 months with 10+ engineers</li>
+                        <li><strong>Support:</strong> AI resolves account inquiries, transaction questions, password resets instantly</li>
+                        <li><strong>Scale Efficiency:</strong> Scaling to 933K projected customers (2026) without massive team expansion</li>
+                    </ul>
+                </div>
+
+                <h3>Why This Matters for Our Market</h3>
+                <p><strong>Multi-language AI support is critical for international families and foreign-born workers:</strong></p>
+                <ul>
+                    <li>Instant support in Spanish, Portuguese, and all major languages</li>
+                    <li>No need to hire specialized bilingual support staff for each language</li>
+                    <li>24/7 availability across time zones for international customers</li>
+                    <li>Cultural sensitivity and localization built into AI responses</li>
+                </ul>
+            </section>
+
+            <!-- 9. Modular & Scalable Infrastructure -->
+            <section id="modular" class="section">
+                <h2>9. Modular & Scalable Infrastructure</h2>
+                <p><strong>Seamlessly switch banking partners without disrupting customers</strong></p>
+
+                <h3>The Challenges with Traditional Banking</h3>
+                <ul>
+                    <li><strong>Vendor lock-in:</strong> Switching from FIS to Galileo requires 12-18 month migration</li>
+                    <li><strong>Customer disruption:</strong> New account numbers, cards, app reinstalls</li>
+                    <li><strong>Data migration nightmares:</strong> Years of transaction history at risk</li>
+                    <li><strong>Downtime:</strong> Days/weeks of service interruption</li>
+                </ul>
+
+                <h3>Our Modular Architecture</h3>
+                <ul>
+                    <li><strong>Abstraction layer:</strong> Our platform sits between customers and banking partners</li>
+                    <li><strong>Zero-downtime switching:</strong> Change from FIS → Galileo → MX → Synapse without users noticing</li>
+                    <li><strong>Account persistence:</strong> Same account numbers, same cards, same app experience</li>
+                    <li><strong>Instant cutover:</strong> Backend switch happens in hours, not months</li>
+                    <li><strong>Multi-bank redundancy:</strong> Can run multiple core banks simultaneously for redundancy</li>
+                </ul>
+
+                <h3>What This Enables</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Benefit</th>
+                            <th>Description</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Negotiate better rates</td>
+                            <td>Not locked into any single provider</td>
+                            <td>Lower costs, better margins</td>
+                        </tr>
+                        <tr>
+                            <td>Geographic expansion</td>
+                            <td>Add regional banking partners by market</td>
+                            <td>Faster international growth</td>
+                        </tr>
+                        <tr>
+                            <td>Risk mitigation</td>
+                            <td>If one partner has issues, seamlessly failover to backup</td>
+                            <td>99.99% uptime</td>
+                        </tr>
+                        <tr>
+                            <td>Best-of-breed</td>
+                            <td>Use FIS for US, Galileo for international, etc.</td>
+                            <td>Optimal performance per market</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box blue">
+                    <strong>Competitive Moat:</strong> Our abstraction layer means we're never locked into a single banking partner. Switch from FIS to Galileo to any other core banking system in hours, not months, without customers noticing. This gives us pricing power, risk mitigation, and geographic flexibility competitors can't match.
+                </div>
+            </section>
+
+            <!-- 10. Open Ecosystem Platform -->
+            <section id="ecosystem" class="section">
+                <h2>10. Open Ecosystem Platform</h2>
+                <p><strong>API-first architecture enables rapid product launches and non-traditional banking services</strong></p>
+
+                <h3>Beyond Traditional Banking</h3>
+                <p>Our open platform architecture allows us to integrate any external API or data source, enabling us to offer products traditional banks cannot. We become a <strong>financial services hub</strong>, not just a bank - launching new products in weeks instead of years.</p>
+
+                <div class="info-box green">
+                    <strong>Flexibility & Speed:</strong> While traditional banks spend 12-24 months building each new product in-house, we integrate existing best-in-class APIs in 2-4 weeks. This means we can rapidly respond to market opportunities and customer needs without massive development costs or regulatory burdens.
+                </div>
+
+                <h3>Live Example: Integrated Insurance</h3>
+                <div class="info-box blue">
+                    <strong>In-App Insurance Marketplace:</strong> Customers compare and purchase insurance policies directly in MyBambu by integrating with providers like Lemonade, Root, or local insurers. We earn referral fees while customers get instant coverage without leaving the app.
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li>Auto insurance with instant quotes</li>
+                        <li>Renters/homeowners insurance</li>
+                        <li>Life insurance (term & whole life)</li>
+                        <li>Health insurance marketplace integration</li>
+                    </ul>
+                </div>
+
+                <h3>Product Categories We Can Launch Rapidly</h3>
+
+                <h4>1. Credit & Lending</h4>
+                <ul>
+                    <li><strong>Buy Now Pay Later:</strong> Integrate Affirm/Klarna - point-of-sale financing</li>
+                    <li><strong>Personal Loans:</strong> API with Upstart, LendingClub - instant loan approvals</li>
+                    <li><strong>Student Loan Refinancing:</strong> SoFi/Earnest integration - better rates in-app</li>
+                    <li><strong>Paycheck Advances:</strong> Earned wage access (like Dave, Earnin)</li>
+                    <li><strong>Credit Building:</strong> Rent reporting (Bilt), secured credit cards</li>
+                </ul>
+
+                <h4>2. E-commerce & Retail</h4>
+                <ul>
+                    <li><strong>Cashback & Rewards:</strong> Integrate with Rakuten, Honey - earn on purchases</li>
+                    <li><strong>Gift Cards:</strong> API with Raise, CardCash - buy discounted gift cards</li>
+                    <li><strong>Price Protection:</strong> Paribus integration - automatic refunds if prices drop</li>
+                    <li><strong>Subscription Management:</strong> Truebill/Rocket Money - cancel unused subscriptions</li>
+                </ul>
+
+                <h4>3. Financial Tools & Services</h4>
+                <ul>
+                    <li><strong>Tax Filing:</strong> TurboTax API - file taxes in-app with bank data pre-filled</li>
+                    <li><strong>Bill Negotiation:</strong> Billshark integration - automatically lower cable, phone bills</li>
+                    <li><strong>Credit Monitoring:</strong> Experian/TransUnion API - free credit scores & monitoring</li>
+                    <li><strong>Identity Protection:</strong> LifeLock integration - fraud monitoring services</li>
+                    <li><strong>Legal Services:</strong> LegalZoom API - create LLCs, wills, contracts</li>
+                </ul>
+
+                <h4>4. Cross-Border & Remittances</h4>
+                <ul>
+                    <li><strong>International Money Transfer:</strong> Wise/Remitly API - better rates than banks</li>
+                    <li><strong>Currency Exchange:</strong> Real-time FX rates with low spreads</li>
+                    <li><strong>Global Accounts:</strong> Multi-currency accounts (USD, EUR, MXN, etc.)</li>
+                    <li><strong>Bill Pay Abroad:</strong> Pay utilities/bills in other countries directly</li>
+                    <li><strong>International Phone Plans:</strong> eSIM integration for travelers and immigrants</li>
+                </ul>
+
+                <h4>5. Business Banking Add-Ons</h4>
+                <ul>
+                    <li><strong>Accounting:</strong> QuickBooks/Xero integration - sync transactions automatically</li>
+                    <li><strong>Payroll:</strong> Gusto API - pay employees with one click</li>
+                    <li><strong>Invoicing:</strong> Stripe Invoicing - send professional invoices</li>
+                    <li><strong>Business Credit:</strong> Nav integration - monitor business credit scores</li>
+                    <li><strong>Point of Sale:</strong> Square/Clover integration - in-app POS system</li>
+                </ul>
+
+                <h4>6. Investment & Wealth</h4>
+                <ul>
+                    <li><strong>Fractional Real Estate:</strong> Integrate with Fundrise, RealtyMogul - customers invest in property with $500</li>
+                    <li><strong>Crypto Trading:</strong> Partner with Coinbase/Circle - buy Bitcoin, Ethereum in-app</li>
+                    <li><strong>Robo-Advisors:</strong> Integrate Betterment/Wealthfront API - automated portfolio management</li>
+                    <li><strong>Stock Trading:</strong> Partner with DriveWealth API - commission-free stock purchases</li>
+                    <li><strong>Alternative Investments:</strong> Fine art (Masterworks), collectibles, commodities</li>
+                </ul>
+
+                <h3>Why This is a Massive Advantage</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>MyBambu</th>
+                            <th>Traditional Banks</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Time to Launch New Product</td>
+                            <td>2-4 weeks (API integration)</td>
+                            <td>12-24 months (build in-house)</td>
+                            <td class="highlight">10x faster</td>
+                        </tr>
+                        <tr>
+                            <td>Product Variety</td>
+                            <td>Unlimited (any API)</td>
+                            <td>5-10 core banking products</td>
+                            <td class="highlight">100x more options</td>
+                        </tr>
+                        <tr>
+                            <td>Development Cost</td>
+                            <td>$5K-$20K per integration</td>
+                            <td>$500K-$2M per product</td>
+                            <td class="highlight">99% cost reduction</td>
+                        </tr>
+                        <tr>
+                            <td>Regulatory Burden</td>
+                            <td>Partner handles compliance</td>
+                            <td>Must obtain all licenses</td>
+                            <td class="highlight">Zero red tape</td>
+                        </tr>
+                        <tr>
+                            <td>Revenue Streams</td>
+                            <td>Referral fees from all partners</td>
+                            <td>Only banking fees</td>
+                            <td class="highlight">10+ revenue sources</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Business Model Impact</h3>
+                <div class="info-box green">
+                    <strong>Revenue Diversification:</strong> Each integrated product creates a new revenue stream:
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Insurance:</strong> 5-15% commission per policy sold</li>
+                        <li><strong>Investments:</strong> 0.25-1% AUM fees from partners</li>
+                        <li><strong>BNPL:</strong> Merchant fees (2-6% per transaction)</li>
+                        <li><strong>Credit Products:</strong> Origination fees (1-5%)</li>
+                        <li><strong>Travel/Retail:</strong> Cashback sharing (0.5-2%)</li>
+                    </ul>
+                    <strong>Result:</strong> Average revenue per user grows from $9/month (banking only) to $25-50/month (full ecosystem).
+                </div>
+
+                <h3>Network Effects & Competitive Moat</h3>
+                <p>The more products we integrate, the more valuable MyBambu becomes:</p>
+                <ul>
+                    <li><strong>Higher engagement:</strong> Users open app 5-10x per week (vs. 2x for traditional banks)</li>
+                    <li><strong>Better data:</strong> More transactions = better AI insights = better product recommendations</li>
+                    <li><strong>Switching costs:</strong> Users won't leave once they've integrated insurance, investments, utilities</li>
+                    <li><strong>Word of mouth:</strong> "MyBambu has everything" becomes the brand promise</li>
+                    <li><strong>First-mover advantage:</strong> Traditional banks need 12-24 months per product - we can launch 50+ in that time</li>
+                </ul>
+
+                <div class="info-box blue">
+                    <strong>Adaptability is Our Superpower:</strong> When new opportunities emerge (new fintech APIs, regulatory changes, customer demands), we can respond in weeks, not years. This flexibility allows us to capitalize on market shifts that competitors can't address quickly enough. Our API-first architecture means we're never locked into a single product strategy - we can pivot and expand based on what customers actually want.
+                </div>
+            </section>
+
+            <!-- 11. Why We Win -->
+            <section id="competition" class="section">
+                <h2>11. Competition & Our Advantage</h2>
+                <p><strong>Why we win: Proven execution + technology moat</strong></p>
+
+                <h3>Competitive Comparison</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>MyBambu</th>
+                            <th>Traditional Banks</th>
+                            <th>Fintech Competitors</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Proven Scale</strong></td>
+                            <td><strong>607K funded customers</strong></td>
+                            <td>Millions</td>
+                            <td>Varies</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Revenue Diversification</strong></td>
+                            <td><strong>9 product lines</strong></td>
+                            <td>100+</td>
+                            <td>2-5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gross Margin Trajectory</strong></td>
+                            <td><strong class="highlight">5.2% → 59.9%</strong></td>
+                            <td>35-45%</td>
+                            <td>10-30%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Growth Rate</strong></td>
+                            <td><strong class="highlight">+445% projected</strong></td>
+                            <td>2-5%</td>
+                            <td>20-100%</td>
+                        </tr>
+                        <tr>
+                            <td>Modular banking (switch providers)</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td>Locked to one vendor</td>
+                            <td>Locked to middleware</td>
+                        </tr>
+                        <tr>
+                            <td>Zero-downtime partner switching</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td>12-18 month migrations</td>
+                            <td>Vendor dependent</td>
+                        </tr>
+                        <tr>
+                            <td>Modern rails (RTP + Stablecoin)</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td>Legacy only</td>
+                            <td>Partial</td>
+                        </tr>
+                        <tr>
+                            <td>AI-accelerated development</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="crossmark">❌</span></td>
+                            <td><span class="crossmark">❌</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI-powered support (70% automation)</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td><span class="crossmark">❌</span></td>
+                            <td><span class="crossmark">❌</span></td>
+                        </tr>
+                        <tr>
+                            <td>24/7 settlement</td>
+                            <td><span class="checkmark">✓</span></td>
+                            <td>9-5 M-F</td>
+                            <td>Partial</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Our Defensible Moat</h3>
+
+                <div class="info-box blue">
+                    <h4 style="margin-top: 0;">1. Proven Execution at Scale</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>607K funded customers generating $13.8M revenue (2025)</li>
+                        <li>2.2M accounts created shows massive brand awareness</li>
+                        <li>445% projected growth demonstrates product-market fit</li>
+                        <li>9 revenue streams prove we can launch and scale products</li>
+                    </ul>
+                </div>
+
+                <div class="info-box blue">
+                    <h4 style="margin-top: 0;">2. Margin Expansion Trajectory</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>5.2% → 59.9% gross margin shows path to profitability</li>
+                        <li>AI operations enable scale without proportional cost increases</li>
+                        <li>Unit economics improve as we add higher-margin products (loans, business services)</li>
+                    </ul>
+                </div>
+
+                <div class="info-box blue">
+                    <h4 style="margin-top: 0;">3. Infrastructure Advantage</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>Building on modern rails (RTP/FedNow, stablecoins, NFC) + legacy compatibility</li>
+                        <li>Traditional banks locked into 50-year-old systems requiring billion-dollar overhauls</li>
+                        <li>Fintech competitors locked into specific middleware providers</li>
+                    </ul>
+                </div>
+
+                <div class="info-box blue">
+                    <h4 style="margin-top: 0;">4. AI Leverage</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>Build products 10x faster AND support 10x more customers per team member</li>
+                        <li>Scaling to 933K projected customers (2026) without massive team expansion</li>
+                        <li>While competitors spend millions scaling teams, we scale with software</li>
+                    </ul>
+                </div>
+
+                <div class="info-box blue">
+                    <h4 style="margin-top: 0;">5. First-Mover Edge</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>RTP/FedNow launched July 2023 - we're building natively on modern rails now</li>
+                        <li>By the time incumbents complete migrations (2026-2028), we'll have 3-5 years of advantages</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 12. Business Model -->
+            <section id="business-model" class="section">
+                <h2>12. Business Model</h2>
+                <p><strong>Diversified revenue across 9+ product lines</strong></p>
+
+                <h3>2025 Actual Revenue: $13.8M</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Category</th>
+                            <th>2025 Revenue</th>
+                            <th>% Share</th>
+                            <th>2026 Forecast</th>
+                            <th>Growth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Card & Interchange</td>
+                            <td>$5.1M</td>
+                            <td>36.8%</td>
+                            <td>$18.8M</td>
+                            <td class="highlight">+270%</td>
+                        </tr>
+                        <tr>
+                            <td>Foreign Exchange Fees</td>
+                            <td>$2.32M</td>
+                            <td>16.8%</td>
+                            <td>$10.7M</td>
+                            <td class="highlight">+362%</td>
+                        </tr>
+                        <tr>
+                            <td>Remittance Fees</td>
+                            <td>$2.27M</td>
+                            <td>16.4%</td>
+                            <td>$7.8M</td>
+                            <td class="highlight">+242%</td>
+                        </tr>
+                        <tr>
+                            <td>Unsecured Loans</td>
+                            <td>$1.31M</td>
+                            <td>9.5%</td>
+                            <td>$11.8M</td>
+                            <td class="highlight">+806%</td>
+                        </tr>
+                        <tr>
+                            <td>ATM Surcharges</td>
+                            <td>$1.16M</td>
+                            <td>8.4%</td>
+                            <td>$6.1M</td>
+                            <td class="highlight">+421%</td>
+                        </tr>
+                        <tr>
+                            <td>LatAm Products</td>
+                            <td>$0.60M</td>
+                            <td>4.4%</td>
+                            <td>$10.0M</td>
+                            <td class="highlight">+1,567%</td>
+                        </tr>
+                        <tr>
+                            <td>Business Products</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>$5.2M</td>
+                            <td><strong>New 2026</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Load Fees</td>
+                            <td>$0.52M</td>
+                            <td>3.8%</td>
+                            <td>$2.0M</td>
+                            <td class="highlight">+287%</td>
+                        </tr>
+                        <tr>
+                            <td>Mortgages + Vehicles</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>$0.9M</td>
+                            <td><strong>New 2026</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="two-col-grid">
+                    <div>
+                        <h3>Key Unit Economics (2025)</h3>
+                        <ul>
+                            <li><strong>Active Users:</strong> 125K monthly average</li>
+                            <li><strong>Annual Revenue Per User (ARPU):</strong> $110</li>
+                            <li><strong>Monthly ARPU:</strong> $9.22</li>
+                            <li><strong>Conversion Rate:</strong> 27.6% (funded from total accounts)</li>
+                            <li><strong>Gross Margin:</strong> 5.2% (2025) → 59.9% (2026 forecast)</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>2026 Projections</h3>
+                        <ul>
+                            <li><strong>Forecasted Revenue:</strong> $75.3M (+445% YoY)</li>
+                            <li><strong>Projected Active Customers:</strong> 933K</li>
+                            <li><strong>Forecasted ARPU:</strong> $81</li>
+                            <li><strong>CAC Payback:</strong> 3-6 months</li>
+                            <li><strong>LTV/CAC Ratio:</strong> 10-15x</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>AI-Driven Unit Economics</h3>
+                <ul>
+                    <li><strong>Customer Support Cost:</strong> $3-5 per user/year (vs. industry $25-40)</li>
+                    <li><strong>CAC Payback Period:</strong> 3-6 months (vs. industry 12-24 months)</li>
+                    <li><strong>Net Revenue Retention:</strong> Target 120%+ with AI-powered upsells</li>
+                    <li><strong>Scale Efficiency:</strong> Support 933K projected customers with minimal team expansion</li>
+                </ul>
+            </section>
+
+            <!-- 13. Product Roadmap -->
+            <section id="roadmap" class="section">
+                <h2>13. Product Roadmap</h2>
+                <p><strong>What we're building next to accelerate growth</strong></p>
+
+                <h3>Q1 2025 (Next 3 Months)</h3>
+                <ul>
+                    <li><strong>RTP/FedNow Integration:</strong> Launch instant domestic payments (live Q1)</li>
+                    <li><strong>Enhanced NFC:</strong> Full Apple Pay & Google Pay rollout across all markets</li>
+                    <li><strong>AI Support Expansion:</strong> Scale to 80% automation, adding more languages</li>
+                    <li><strong>Insurance Marketplace Launch:</strong> First ecosystem product with auto, renters, life insurance</li>
+                </ul>
+
+                <h3>Q2-Q3 2025 (3-9 Months)</h3>
+                <ul>
+                    <li><strong>Stablecoin Remittances:</strong> Circle/USDC cross-border payments for instant LatAm transfers</li>
+                    <li><strong>Business Banking Launch:</strong> SMB accounts with instant settlements for 500K+ immigrant-owned businesses</li>
+                    <li><strong>Investment Products:</strong> Fractional real estate, robo-advisors, stock trading integrations</li>
+                    <li><strong>Geographic Expansion:</strong> Launch in key LatAm markets (Mexico, Colombia, Dominican Republic)</li>
+                    <li><strong>Partner Banking Option:</strong> Add Galileo as secondary core bank for redundancy</li>
+                    <li><strong>Credit Building Products:</strong> Secured credit cards, rent reporting, credit monitoring</li>
+                </ul>
+
+                <h3>Q4 2025+ (9-18 Months)</h3>
+                <ul>
+                    <li><strong>Merchant Services:</strong> Real-time settlement for businesses, POS integrations</li>
+                    <li><strong>Mortgage & Auto Loans:</strong> Launch secured lending products for established customers</li>
+                    <li><strong>International Expansion:</strong> Direct banking services in home countries</li>
+                    <li><strong>White-Label Platform:</strong> BaaS offering to partners (other fintechs, neobanks)</li>
+                    <li><strong>Tax & Legal Services:</strong> TurboTax, LegalZoom integrations for immigrant business owners</li>
+                    <li><strong>E-commerce Ecosystem:</strong> Cashback, BNPL, subscription management</li>
+                </ul>
+
+                <div class="info-box green">
+                    <strong>Enabled by AI:</strong> We can deliver this aggressive roadmap with a 10-person engineering team. Traditional banks would need 100+ engineers and 12-18 months per feature. We'll ship all of this in 12 months thanks to AI-accelerated development and our API-first architecture.
+                </div>
+
+                <h3>Reactivation Strategy for 1.6M Unfunded Accounts</h3>
+                <p>Parallel to new product launches, we'll execute targeted campaigns to convert unfunded accounts:</p>
+                <ul>
+                    <li><strong>Q1-Q2 2025:</strong> Email/SMS campaigns with limited-time offers (target 160K-320K conversions)</li>
+                    <li><strong>Q3 2025:</strong> Launch new products specifically designed for dormant users (insurance, investments)</li>
+                    <li><strong>Q4 2025:</strong> Referral incentives - activate friends/family for bonus rewards</li>
+                    <li><strong>Investment:</strong> $8M-16M total | <strong>Expected Return:</strong> $13M-26M revenue at $81 ARPU</li>
+                </ul>
+
+                <div class="info-box blue">
+                    <strong>Speed to Market Advantage:</strong> Our modular infrastructure and AI development capabilities mean we can launch products competitors are still planning. While traditional banks take 2-3 years to build a single new product line, we'll launch 20+ in the next 18 months.
+                </div>
+            </section>
+
+            <!-- 14. Go-to-Market Strategy -->
+            <section id="gtm" class="section">
+                <h2>14. Go-to-Market Strategy</h2>
+                <p><strong>Proven acquisition playbook + 1.6M reactivation opportunity</strong></p>
+
+                <h3>Current Acquisition Channels (Proven)</h3>
+                <ul>
+                    <li><strong>Community Partnerships:</strong> Latino/Hispanic community organizations, churches, cultural centers</li>
+                    <li><strong>Word-of-Mouth:</strong> 27.6% conversion rate shows strong product-market fit</li>
+                    <li><strong>Digital Marketing:</strong> Social media targeting immigrant communities</li>
+                    <li><strong>Remittance Network:</strong> Users bring family members for cross-border transfers</li>
+                </ul>
+
+                <h3>2026 Growth Strategy</h3>
+
+                <h4>1. Reactivation Campaign (1.6M unfunded accounts)</h4>
+                <ul>
+                    <li><strong>Target:</strong> Convert 10-20% of 1.6M unfunded accounts → 160K-320K new funded customers</li>
+                    <li><strong>Cost:</strong> $5-10 per activation (email, SMS, push notifications, incentives)</li>
+                    <li><strong>Total Investment:</strong> $8M-16M</li>
+                    <li><strong>Expected Revenue:</strong> $13M-26M at $81 ARPU</li>
+                    <li><strong>ROI:</strong> <span class="highlight">1.6x-1.9x in Year 1</span></li>
+                </ul>
+
+                <h4>2. New Customer Acquisition</h4>
+                <ul>
+                    <li><strong>Target:</strong> 400K-600K new customers</li>
+                    <li><strong>Focus Markets:</strong> California, Texas, Florida, New York (highest Latino populations)</li>
+                    <li><strong>Channels:</strong> Digital ads, influencer partnerships, referral programs</li>
+                    <li><strong>CAC Target:</strong> $25-40 (vs. industry $60-100)</li>
+                    <li><strong>Payback Period:</strong> 3-6 months</li>
+                </ul>
+
+                <h4>3. Product Expansion</h4>
+                <ul>
+                    <li><strong>Business Banking:</strong> Launch Business Products targeting 500K+ immigrant-owned SMBs</li>
+                    <li><strong>Credit Products:</strong> Mortgages + Vehicle Loans for established customers</li>
+                    <li><strong>LatAm Expansion:</strong> Direct banking services in home countries</li>
+                </ul>
+
+                <h3>Customer Acquisition Metrics</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Current</th>
+                            <th>Target (Scale)</th>
+                            <th>vs. Industry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CAC</td>
+                            <td>$15-25</td>
+                            <td>$25-40</td>
+                            <td>$60-100</td>
+                        </tr>
+                        <tr>
+                            <td>LTV</td>
+                            <td>$300-400</td>
+                            <td>$400-500</td>
+                            <td>$200-300</td>
+                        </tr>
+                        <tr>
+                            <td>LTV/CAC Ratio</td>
+                            <td>10-15x</td>
+                            <td>10-15x</td>
+                            <td>3-5x</td>
+                        </tr>
+                        <tr>
+                            <td>Payback Period</td>
+                            <td>3-6 months</td>
+                            <td>3-6 months</td>
+                            <td>12-24 months</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box green">
+                    <strong>Unfair Advantages in Customer Acquisition:</strong>
+                    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                        <li><strong>Lower CAC:</strong> AI-powered support and multi-language capabilities mean better unit economics</li>
+                        <li><strong>Better Product:</strong> Instant cross-border payments at 10x lower cost create strong word-of-mouth</li>
+                        <li><strong>Faster Iteration:</strong> AI development = ship features competitors can't match</li>
+                        <li><strong>Network Effects:</strong> Each remittance sender brings their recipient network</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Smooth scrolling navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            // Handle nav link clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    // Scroll to section
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Highlight active section on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -70% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu - Company Overview & LATAM Expansion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            min-height: 600px;
+            position: relative;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 24px;
+            margin: 25px 0 15px 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .metric-value {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .product-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .roadmap-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .country-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 6px solid #667eea;
+        }
+
+        .country-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .country-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .launch-quarter {
+            background: #667eea;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .country-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .transaction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .transaction-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .transaction-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .transaction-type {
+            color: #666;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-left: 25px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .expansion-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .expansion-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .expansion-stat {
+            border-right: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .expansion-stat:last-child {
+            border-right: none;
+        }
+
+        .expansion-stat-value {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .expansion-stat-label {
+            font-size: 16px;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="slide-number">1</div>
+            <h1>MyBambu</h1>
+            <p class="subtitle">Banking for Unbanked & Underbanked Latino Communities</p>
+            <div style="text-align: center; margin-top: 80px;">
+                <p style="font-size: 28px; color: #667eea; font-weight: bold; margin-bottom: 20px;">Company Overview & LATAM Expansion Strategy</p>
+                <p style="font-size: 20px; color: #666; margin-top: 40px;">Your account for everything</p>
+                <p style="font-size: 18px; color: #999; margin-top: 60px;">Presentation covering operations through LATAM expansion</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Company Overview -->
+        <div class="slide">
+            <div class="slide-number">2</div>
+            <h2>Company Overview</h2>
+            <div style="font-size: 20px; line-height: 1.8; margin-top: 40px;">
+                <p style="margin-bottom: 30px;">
+                    <strong>MyBambu</strong> is a neobank serving the US and Latin American markets, specifically targeting unbanked and underbanked Latino communities.
+                </p>
+                <div class="highlight-box">
+                    <p style="font-size: 22px; font-weight: bold; color: #856404;">
+                        The platform enables secure transactions regardless of immigration status
+                    </p>
+                </div>
+                <div style="margin-top: 50px;">
+                    <h3>Mission</h3>
+                    <p style="margin-top: 15px;">Provide comprehensive financial services to underserved communities across the US and Latin America</p>
+                </div>
+                <div style="margin-top: 40px;">
+                    <h3>Market Focus</h3>
+                    <ul style="margin-top: 15px;">
+                        <li>Unbanked and underbanked Latino populations</li>
+                        <li>US and Latin American markets</li>
+                        <li>Inclusive banking regardless of immigration status</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Key Metrics -->
+        <div class="slide">
+            <div class="slide-number">3</div>
+            <h2>Key Performance Metrics (Q2 2025)</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">929K+</div>
+                    <div class="metric-label">Total Customers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">40.56M+</div>
+                    <div class="metric-label">Total Transactions</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">Countries</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$13.3M+</div>
+                    <div class="metric-label">Revenue (Past 12 Months)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">129,322</div>
+                    <div class="metric-label">Active Customers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">170+</div>
+                    <div class="metric-label">Employees</div>
+                </div>
+            </div>
+            <div style="margin-top: 50px; text-align: center;">
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                        <div>
+                            <div style="font-size: 32px; font-weight: bold; color: #667eea;">$8.31</div>
+                            <div style="color: #666; margin-top: 10px;">Revenue per Customer</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 32px; font-weight: bold; color: #667eea;">$50.79</div>
+                            <div style="color: #666; margin-top: 10px;">Customer Acquisition Cost</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Transaction Volume -->
+        <div class="slide">
+            <div class="slide-number">4</div>
+            <h2>Transaction Volume Breakdown</h2>
+            <div class="transaction-grid">
+                <div class="transaction-card">
+                    <div class="transaction-amount">$1.72B+</div>
+                    <div class="transaction-type">POS/Card Transactions</div>
+                </div>
+                <div class="transaction-card">
+                    <div class="transaction-amount">$583.8M+</div>
+                    <div class="transaction-type">Cash Loads</div>
+                </div>
+                <div class="transaction-card">
+                    <div class="transaction-amount">$580.5M+</div>
+                    <div class="transaction-type">ACH Transactions</div>
+                </div>
+                <div class="transaction-card">
+                    <div class="transaction-amount">$377.1M+</div>
+                    <div class="transaction-type">Cross-border Transfers</div>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 50px;">
+                <h3 style="color: #856404; margin-bottom: 15px;">Growth Trajectory</h3>
+                <p style="font-size: 18px; line-height: 1.8;">
+                    <strong>111% transaction growth</strong> from Q4 2023 to Q2 2025<br>
+                    Customer base grew from <strong>182K (Q1 2022)</strong> to <strong>874K (Q2 2025)</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Product Offerings -->
+        <div class="slide">
+            <div class="slide-number">5</div>
+            <h2>Product Offerings</h2>
+            <p style="font-size: 20px; margin-bottom: 30px; color: #666;">13 Comprehensive Financial Products</p>
+            <div class="product-list">
+                <div class="product-item">
+                    <strong>Bambu Pay</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Integrated payment solution</p>
+                </div>
+                <div class="product-item">
+                    <strong>International Transfers</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Cross-border payments</p>
+                </div>
+                <div class="product-item">
+                    <strong>Digital & Physical Cards</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Full card solutions</p>
+                </div>
+                <div class="product-item">
+                    <strong>Cash Add Services</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Easy cash deposits</p>
+                </div>
+                <div class="product-item">
+                    <strong>Direct Deposit</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Payroll integration</p>
+                </div>
+                <div class="product-item">
+                    <strong>User Transfers</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">P2P payments</p>
+                </div>
+                <div class="product-item">
+                    <strong>Cash-back Rewards</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Loyalty program</p>
+                </div>
+                <div class="product-item">
+                    <strong>Credit Building</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">US Shopping credit</p>
+                </div>
+                <div class="product-item">
+                    <strong>Mobile Top-ups</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Phone recharges</p>
+                </div>
+                <div class="product-item">
+                    <strong>Gift Cards</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Retail partnerships</p>
+                </div>
+                <div class="product-item">
+                    <strong>Insurance</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Protection products</p>
+                </div>
+                <div class="product-item">
+                    <strong>Food Delivery</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Integrated services</p>
+                </div>
+                <div class="product-item">
+                    <strong>Referral Program</strong>
+                    <p style="font-size: 14px; color: #666; margin-top: 5px;">Growth incentives</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: 2025 Roadmap -->
+        <div class="slide">
+            <div class="slide-number">6</div>
+            <h2>2025 Product Roadmap</h2>
+            <div class="roadmap-section">
+                <h3>Lending & Credit (Q4 2025 - Q1 2026)</h3>
+                <ul>
+                    <li>Installment loans</li>
+                    <li>Business loans</li>
+                    <li>Auto loans</li>
+                    <li>Buy Now, Pay Later (BNPL)</li>
+                    <li>Business credit cards</li>
+                </ul>
+            </div>
+            <div class="roadmap-section">
+                <h3>Payments & Transfers</h3>
+                <ul>
+                    <li>P2P/P2B real-time payments</li>
+                    <li>Early ACH access</li>
+                    <li>Visa Direct domestic transfers</li>
+                    <li>Visa Direct cross-border transfers</li>
+                </ul>
+            </div>
+            <div class="roadmap-section">
+                <h3>Global Expansion</h3>
+                <ul>
+                    <li>IMT network expansion</li>
+                    <li>LATAM card launches (México and Colombia)</li>
+                    <li>Domestic crypto wallets</li>
+                    <li>Cross-border crypto wallets</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: LATAM Expansion Overview -->
+        <div class="slide">
+            <div class="slide-number">7</div>
+            <h2>LATAM Expansion Strategy</h2>
+            <div class="expansion-summary">
+                <h3 style="color: white; font-size: 32px; margin-bottom: 20px;">MiBambu Brand Rollout</h3>
+                <p style="font-size: 20px; margin-bottom: 30px;">Six-Country Expansion: Q4 2025 - Q3 2027</p>
+                <div class="expansion-stats">
+                    <div class="expansion-stat">
+                        <div class="expansion-stat-value">240M+</div>
+                        <div class="expansion-stat-label">Total Population</div>
+                    </div>
+                    <div class="expansion-stat">
+                        <div class="expansion-stat-value">82M+</div>
+                        <div class="expansion-stat-label">Unbanked Individuals</div>
+                    </div>
+                    <div class="expansion-stat">
+                        <div class="expansion-stat-value">6</div>
+                        <div class="expansion-stat-label">Target Countries</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 40px; font-size: 18px; line-height: 1.8;">
+                <p><strong>Target Markets:</strong></p>
+                <ul style="margin-top: 15px;">
+                    <li>México (Q4 2025)</li>
+                    <li>Colombia (Q4 2025)</li>
+                    <li>Honduras (Q4 2026)</li>
+                    <li>Guatemala (Q1 2027)</li>
+                    <li>Nicaragua (Q2 2027)</li>
+                    <li>El Salvador (Q3 2027)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: México -->
+        <div class="slide">
+            <div class="slide-number">8</div>
+            <h2>LATAM Expansion: México</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇲🇽 México</div>
+                    <div class="launch-quarter">Q4 2025</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">128M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">40M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">$61B</div>
+                        <div class="stat-label">Annual Remittances</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>Largest LATAM market by population</li>
+                    <li>Highest remittance volume in the region</li>
+                    <li>Significant unbanked population (31%)</li>
+                    <li>Growing digital adoption and smartphone penetration</li>
+                    <li>Strategic entry point for North American corridor</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Colombia -->
+        <div class="slide">
+            <div class="slide-number">9</div>
+            <h2>LATAM Expansion: Colombia</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇨🇴 Colombia</div>
+                    <div class="launch-quarter">Q4 2025</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">52M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">18M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">35%</div>
+                        <div class="stat-label">Unbanked Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>Second-largest South American economy in target markets</li>
+                    <li>Strong digital adoption and fintech-friendly regulations</li>
+                    <li>High mobile penetration rate</li>
+                    <li>Growing middle class with increasing financial needs</li>
+                    <li>Strategic location for South American expansion</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Honduras -->
+        <div class="slide">
+            <div class="slide-number">10</div>
+            <h2>LATAM Expansion: Honduras</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇭🇳 Honduras</div>
+                    <div class="launch-quarter">Q4 2026</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">10M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">6M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">$8B</div>
+                        <div class="stat-label">Annual Remittances</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>High unbanked rate (60%) presents significant opportunity</li>
+                    <li>Remittances represent 27% of GDP - highest in region</li>
+                    <li>Strong US immigrant population driving remittance flow</li>
+                    <li>Growing mobile adoption in urban areas</li>
+                    <li>Gateway to Central American market</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Guatemala -->
+        <div class="slide">
+            <div class="slide-number">11</div>
+            <h2>LATAM Expansion: Guatemala</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇬🇹 Guatemala</div>
+                    <div class="launch-quarter">Q1 2027</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">18M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">11M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">61%</div>
+                        <div class="stat-label">Unbanked Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>Largest Central American economy</li>
+                    <li>Massive unbanked population (61%)</li>
+                    <li>High remittance dependency from US diaspora</li>
+                    <li>Young, tech-savvy population in urban centers</li>
+                    <li>Increasing smartphone penetration</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Nicaragua -->
+        <div class="slide">
+            <div class="slide-number">12</div>
+            <h2>LATAM Expansion: Nicaragua</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇳🇮 Nicaragua</div>
+                    <div class="launch-quarter">Q2 2027</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">7M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">4M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">57%</div>
+                        <div class="stat-label">Unbanked Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>High unbanked rate (57%) creates strong demand</li>
+                    <li>Growing mobile penetration and connectivity</li>
+                    <li>Emerging fintech market with low competition</li>
+                    <li>Significant remittance flows from diaspora</li>
+                    <li>Underserved rural and semi-urban populations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 13: El Salvador -->
+        <div class="slide">
+            <div class="slide-number">13</div>
+            <h2>LATAM Expansion: El Salvador</h2>
+            <div class="country-card">
+                <div class="country-header">
+                    <div class="country-name">🇸🇻 El Salvador</div>
+                    <div class="launch-quarter">Q3 2027</div>
+                </div>
+                <div class="country-stats">
+                    <div class="stat">
+                        <div class="stat-value">6M</div>
+                        <div class="stat-label">Population</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">3M</div>
+                        <div class="stat-label">Unbanked</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">50%</div>
+                        <div class="stat-label">Unbanked Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 18px; line-height: 1.8;">
+                <h3>Market Opportunity</h3>
+                <ul>
+                    <li>USD economy eliminates currency risk</li>
+                    <li>Crypto-friendly regulatory environment (Bitcoin legal tender)</li>
+                    <li>Tech-forward government policies</li>
+                    <li>High smartphone adoption rate</li>
+                    <li>Strong remittance economy from US diaspora</li>
+                    <li>Ideal testbed for crypto wallet integration</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: Expansion Timeline Summary -->
+        <div class="slide">
+            <div class="slide-number">14</div>
+            <h2>LATAM Expansion Timeline</h2>
+            <div style="margin-top: 40px;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Phase 1: Q4 2025</h3>
+                    <p style="font-size: 18px;">🇲🇽 México • 🇨🇴 Colombia</p>
+                    <p style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Launch in largest markets with highest remittance volumes</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Phase 2: Q4 2026</h3>
+                    <p style="font-size: 18px;">🇭🇳 Honduras</p>
+                    <p style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Expand to high remittance-dependent market</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Phase 3: Q1 2027</h3>
+                    <p style="font-size: 18px;">🇬🇹 Guatemala</p>
+                    <p style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Enter largest Central American economy</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Phase 4: Q2 2027</h3>
+                    <p style="font-size: 18px;">🇳🇮 Nicaragua</p>
+                    <p style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Capture emerging mobile-first market</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px;">
+                    <h3 style="color: white; margin-bottom: 15px;">Phase 5: Q3 2027</h3>
+                    <p style="font-size: 18px;">🇸🇻 El Salvador</p>
+                    <p style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Complete expansion with crypto-friendly USD economy</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

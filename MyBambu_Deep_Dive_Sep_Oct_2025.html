@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu Deep Dive Analysis - Sep vs Oct 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            scroll-snap-align: start;
+        }
+
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin: 30px 0 15px 0;
+        }
+
+        h4 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 20px 0 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .metric-card h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .positive {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .negative {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .insight-box {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-left: 5px solid #2196f3;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .action-box {
+            background-color: #f1f8e9;
+            padding: 20px;
+            border-left: 5px solid #8bc34a;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .risk-critical {
+            background-color: #ffebee;
+            border-left: 5px solid #f44336;
+        }
+
+        .risk-high {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+        }
+
+        .risk-medium {
+            background-color: #fff9c4;
+            border-left: 5px solid #ffc107;
+        }
+
+        .risk-low {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+
+        ul {
+            margin: 15px 0 15px 30px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .kpi-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .kpi-title {
+            font-size: 1.1em;
+            color: #764ba2;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .kpi-value {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="slide">
+            <div class="slide-content">
+                <h1>MyBambu Deep Dive Analysis</h1>
+                <h2 style="text-align: center; border: none;">September vs October 2025</h2>
+                <div class="metric-card" style="margin-top: 40px;">
+                    <h3 style="text-align: center;">Comprehensive Customer Cohort & Transaction Analysis</h3>
+                    <p style="text-align: center; font-size: 1.2em; margin-top: 20px;">
+                        Transaction Trends • Customer Behavior • Churn Prediction • Strategic Action Plans
+                    </p>
+                </div>
+                <div class="footer">
+                    Generated with Claude Code • MyBambu Analytics Team
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Executive Summary</h2>
+
+                <div class="two-column">
+                    <div class="metric-card">
+                        <h3>September 2025</h3>
+                        <div class="metric-value">2,136,803</div>
+                        <p>Total Transactions</p>
+                        <div style="margin-top: 15px;">
+                            <strong>122,078</strong> Unique Customers<br>
+                            <strong>$77.4M</strong> Credits<br>
+                            <strong>$77.9M</strong> Debits<br>
+                            <strong>$-0.57M</strong> Net Value
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <h3>October 2025</h3>
+                        <div class="metric-value">2,129,614</div>
+                        <p>Total Transactions</p>
+                        <div style="margin-top: 15px;">
+                            <strong>112,831</strong> Unique Customers<br>
+                            <strong>$85.7M</strong> Credits<br>
+                            <strong>$81.3M</strong> Debits<br>
+                            <strong>$4.34M</strong> Net Value
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>Transactions: <span class="negative">-0.3%</span> (-7,189 transactions)</li>
+                        <li>Customers: <span class="negative">-7.6%</span> (-9,247 customers)</li>
+                        <li>Net Value: <span class="positive">+$4.91M improvement</span> (from $-0.57M to $4.34M)</li>
+                        <li>Credits: <span class="positive">+10.7%</span> (+$8.3M)</li>
+                        <li><strong>Major Win:</strong> Net position improved by <span class="positive">$4.9M</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Customer Cohort Analysis</h2>
+
+                <div class="insight-box">
+                    <h3>Retention Overview</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cohort</th>
+                                <th>Customers</th>
+                                <th>% of Base</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Retained (Active Both Months)</strong></td>
+                                <td>87,393</td>
+                                <td>71.6%</td>
+                                <td><span class="positive">✓ Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Churned (Sep Only)</strong></td>
+                                <td>34,685</td>
+                                <td>28.4%</td>
+                                <td><span class="negative">✗ Lost</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>New (Oct Only)</strong></td>
+                                <td>25,438</td>
+                                <td>22.5%</td>
+                                <td><span class="positive">✓ Acquired</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight">
+                    <h4>Critical Insight: Churn vs Retention Behavior</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Retained Customers</th>
+                                <th>Churned Customers</th>
+                                <th>Difference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Avg Transactions/Month</td>
+                                <td><strong>56.2</strong></td>
+                                <td>18.6</td>
+                                <td><span class="positive">+202%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Product Types Used</td>
+                                <td><strong>74</strong></td>
+                                <td>69</td>
+                                <td>+7%</td>
+                            </tr>
+                            <tr>
+                                <td>Avg Net Value</td>
+                                <td>-$0.06</td>
+                                <td><strong>-$2.62</strong></td>
+                                <td><span class="negative">44x worse</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="action-box">
+                    <h4>🎯 Key Takeaway</h4>
+                    <p><strong>Low engagement is the strongest churn predictor.</strong> Customers with fewer than 20 transactions per month have 3x higher churn risk. Target these customers immediately for retention campaigns.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Churn Risk Prediction Model</h2>
+
+                <h3>Churn Rate by Transaction Frequency</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Frequency Segment</th>
+                            <th>Total Customers</th>
+                            <th>Churned</th>
+                            <th>Churn Rate</th>
+                            <th>Risk Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><strong>Very Low (1-4)</strong></td>
+                            <td>45,539</td>
+                            <td>24,066</td>
+                            <td><strong>52.8%</strong></td>
+                            <td><span class="negative">CRITICAL</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Low (5-9)</strong></td>
+                            <td>21,076</td>
+                            <td>6,137</td>
+                            <td><strong>29.1%</strong></td>
+                            <td><span class="warning">HIGH</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Moderate (10-19)</strong></td>
+                            <td>21,085</td>
+                            <td>3,065</td>
+                            <td><strong>14.5%</strong></td>
+                            <td><span class="warning">MEDIUM</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Medium Frequency (20-49)</strong></td>
+                            <td>23,327</td>
+                            <td>1,208</td>
+                            <td><strong>5.2%</strong></td>
+                            <td><span class="positive">LOW</span></td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>High Frequency (50+)</strong></td>
+                            <td>11,051</td>
+                            <td>209</td>
+                            <td><strong>1.9%</strong></td>
+                            <td><span class="positive">LOW</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>🚨 Critical Finding</h4>
+                    <p><strong>52.8% churn rate</strong> for customers with 1-4 transactions per month. This represents <strong>24,066 lost customers</strong> from the very low frequency segment alone.</p>
+                </div>
+
+                <h3>Churn Rate by Product Diversity</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Usage</th>
+                            <th>Total Customers</th>
+                            <th>Churn Rate</th>
+                            <th>Avg Products</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td><strong>Single Product</strong></td>
+                            <td>26,437</td>
+                            <td><strong>15230.0%</strong></td>
+                            <td>57.6</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Two Products</strong></td>
+                            <td>26,283</td>
+                            <td><strong>8997.0%</strong></td>
+                            <td>34.2</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Moderate (3-4)</strong></td>
+                            <td>35,898</td>
+                            <td><strong>8121.0%</strong></td>
+                            <td>22.6</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Multi-Product (5-9)</strong></td>
+                            <td>29,775</td>
+                            <td><strong>2283.0%</strong></td>
+                            <td>7.7</td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Power User (10+)</strong></td>
+                            <td>3,685</td>
+                            <td><strong>54.0%</strong></td>
+                            <td>1.5</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="insight-box">
+                    <p><strong>Product diversity dramatically reduces churn:</strong> Single product users have 57.6% churn vs 1.5% for power users (10+ products).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>The Direct Deposit Advantage</h2>
+
+                <div class="two-column">
+                    <div class="metric-card">
+                        <h3>Without Direct Deposit</h3>
+                        <div class="metric-value negative">30.9%</div>
+                        <p>Churn Rate</p>
+                        <div style="margin-top: 15px;">
+                            <strong>109,780</strong> customers<br>
+                            <strong>33,970</strong> churned
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <h3>With Direct Deposit</h3>
+                        <div class="metric-value positive">5.8%</div>
+                        <p>Churn Rate</p>
+                        <div style="margin-top: 15px;">
+                            <strong>12,298</strong> customers<br>
+                            <strong>715</strong> churned
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <h4>💰 Direct Deposit Growth Performance</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>September</th>
+                                <th>October</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transactions</td>
+                                <td>36,188</td>
+                                <td>42,949</td>
+                                <td><span class="positive">+18.7%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Total Inflow</td>
+                                <td>$27.5M</td>
+                                <td>$33.9M</td>
+                                <td><span class="positive">+23.3%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Avg Deposit</td>
+                                <td>$760.04</td>
+                                <td>$789.90</td>
+                                <td><span class="positive">+3.9%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Median Deposit</td>
+                                <td>$685.70</td>
+                                <td>$709.94</td>
+                                <td><span class="positive">+3.5%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="action-box">
+                    <h4>🎯 Strategic Opportunity</h4>
+                    <ul>
+                        <li><strong>5.3x lower churn</strong> with direct deposit (5.8% vs 30.9%)</li>
+                        <li>Only <strong>11% penetration</strong> (12,511 / 112,831 customers)</li>
+                        <li>Each DD customer worth <strong>$2,712/month</strong> on average</li>
+                        <li><strong>Target: 20% penetration</strong> = +$8.8M monthly inflow</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Customer Value Tier Migration</h2>
+
+                <h3>September 2025 Distribution</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Value Tier</th>
+                            <th>Customers</th>
+                            <th>% of Base</th>
+                            <th>Total Credits</th>
+                            <th>Net Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>High Value ($5K+)</td>
+                            <td>1,506</td>
+                            <td>1.2%</td>
+                            <td>$10.0M</td>
+                            <td class="positive">+$209K</td>
+                        </tr>
+                        <tr>
+                            <td>Medium Value ($1K-$5K)</td>
+                            <td>22,293</td>
+                            <td>18.3%</td>
+                            <td>$49.8M</td>
+                            <td class="positive">+$134K</td>
+                        </tr>
+                        <tr>
+                            <td>Low Value ($100-$1K)</td>
+                            <td>41,966</td>
+                            <td>34.4%</td>
+                            <td>$16.3M</td>
+                            <td class="negative">-$69K</td>
+                        </tr>
+                        <tr>
+                            <td>Minimal (<$100)</td>
+                            <td>56,313</td>
+                            <td>46.1%</td>
+                            <td>$1.3M</td>
+                            <td class="negative">-$840K</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>October 2025 Distribution</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Value Tier</th>
+                            <th>Customers</th>
+                            <th>% of Base</th>
+                            <th>Total Credits</th>
+                            <th>Net Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>High Value ($5K+)</td>
+                            <td><strong>2,624 (+74%)</strong></td>
+                            <td>2.3%</td>
+                            <td>$17.9M</td>
+                            <td class="positive"><strong>+$2.42M</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Medium Value ($1K-$5K)</td>
+                            <td>22,485</td>
+                            <td>19.9%</td>
+                            <td>$51.0M</td>
+                            <td class="positive"><strong>+$3.05M</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Low Value ($100-$1K)</td>
+                            <td>40,589</td>
+                            <td>36.0%</td>
+                            <td>$16.0M</td>
+                            <td class="negative">-$118K</td>
+                        </tr>
+                        <tr>
+                            <td>Minimal (<$100)</td>
+                            <td>47,133 (-16%)</td>
+                            <td>41.8%</td>
+                            <td>$787K</td>
+                            <td class="negative">-$1.01M</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>🚀 Customer Quality Improvement</h4>
+                    <ul>
+                        <li>High value customers grew <strong>+74%</strong> (+1,118 customers)</li>
+                        <li>High value net contribution: <strong>+$2.42M</strong> (11.5x increase)</li>
+                        <li>Medium value net contribution: <strong>+$3.05M</strong> (23x increase)</li>
+                        <li>Minimal value customers declined 16% - good quality shift</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>November Churn Risk Forecast</h2>
+                <h3>October Customer Risk Segmentation</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risk Level</th>
+                            <th>Customers</th>
+                            <th>% of Base</th>
+                            <th>Avg Txns</th>
+                            <th>Avg Products</th>
+                            <th>DD Users</th>
+                            <th>Expected Churn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="risk-critical">
+                            <td><strong>CRITICAL</strong></td>
+                            <td>40,133</td>
+                            <td>35.6%</td>
+                            <td>1.9</td>
+                            <td>1.5</td>
+                            <td>671</td>
+                            <td><strong>~21,190</strong></td>
+                        </tr>
+
+                        <tr class="risk-high">
+                            <td><strong>HIGH</strong></td>
+                            <td>18,097</td>
+                            <td>16.0%</td>
+                            <td>6.8</td>
+                            <td>2.9</td>
+                            <td>786</td>
+                            <td><strong>~5,266</strong></td>
+                        </tr>
+
+                        <tr class="risk-medium">
+                            <td><strong>MEDIUM</strong></td>
+                            <td>19,696</td>
+                            <td>17.5%</td>
+                            <td>14.0</td>
+                            <td>3.9</td>
+                            <td>1,472</td>
+                            <td><strong>~2,855</strong></td>
+                        </tr>
+
+                        <tr class="risk-low">
+                            <td><strong>LOW</strong></td>
+                            <td>34,905</td>
+                            <td>30.9%</td>
+                            <td>47.4</td>
+                            <td>6.0</td>
+                            <td>9,582</td>
+                            <td><strong>~1,815</strong></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h4>🚨 November Forecast</h4>
+                    <ul>
+                        <li><strong>40,133 customers at CRITICAL risk</strong> (35.6% of base) - Expected loss: ~21,190 customers</li>
+                        <li><strong>18,097 customers at HIGH risk</strong> (16.0% of base) - Expected loss: ~5,266 customers</li>
+                        <li><strong>Total projected churn: ~33,000 customers</strong> if no intervention</li>
+                        <li>Only 1.7% of critical risk customers have direct deposit</li>
+                    </ul>
+                </div>
+
+                <div class="action-box">
+                    <h4>Immediate Action Required</h4>
+                    <p>Target the <strong>58,230 critical + high risk customers</strong> (51.6% of base) with retention campaigns. Even a 20% reduction in churn would save ~5,000 customers.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Cross-Border User Advantage</h2>
+
+                <div class="insight-box">
+                    <h3>Churn Rate by Cross-Border Activity</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Segment</th>
+                                <th>Total Customers</th>
+                                <th>Churned</th>
+                                <th>Churn Rate</th>
+                                <th>Avg CB Txns</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><strong>Domestic Only</strong></td>
+                                <td>116,606</td>
+                                <td>33,908</td>
+                                <td><strong>29.1%</strong></td>
+                                <td>0.0</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Light Cross-Border (1-4)</strong></td>
+                                <td>4,367</td>
+                                <td>674</td>
+                                <td><strong>15.4%</strong></td>
+                                <td>1.7</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Moderate Cross-Border (5-9)</strong></td>
+                                <td>563</td>
+                                <td>67</td>
+                                <td><strong>11.9%</strong></td>
+                                <td>6.5</td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Heavy Cross-Border (10+)</strong></td>
+                                <td>542</td>
+                                <td>36</td>
+                                <td><strong>6.6%</strong></td>
+                                <td>23.4</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="two-column">
+                    <div>
+                        <h4>September Profile</h4>
+                        <ul>
+                            <li>Domestic Only: 114,059 (93.4%)</li>
+                            <li>Cross-Border: 8,019 (6.6%)</li>
+                            <li>CB users: 35 txns/customer</li>
+                            <li>Domestic: 16 txns/customer</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>October Profile</h4>
+                        <ul>
+                            <li>Domestic Only: 104,975 (93.0%)</li>
+                            <li>Cross-Border: 7,856 (7.0%)</li>
+                            <li>CB users: 36 txns/customer</li>
+                            <li>Domestic: 18 txns/customer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <h4>Key Insights</h4>
+                    <ul>
+                        <li><strong>Heavy cross-border users have 77% lower churn</strong> (6.6% vs 29.1%)</li>
+                        <li>Cross-border users are <strong>2x more engaged</strong> (36 vs 18 txns/month)</li>
+                        <li>Only 7% of customer base, but highly valuable and sticky</li>
+                        <li>Churn decreases with more cross-border activity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Transaction Type Analysis: Areas of Concern</h2>
+
+                <div class="highlight">
+                    <h3>🚨 API Funds Transfer - Rapid Growth</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>September</th>
+                                <th>October</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transactions</td>
+                                <td>30,773</td>
+                                <td>53,589</td>
+                                <td class="warning"><strong>+74.2%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Unique Customers</td>
+                                <td>11,159</td>
+                                <td>16,283</td>
+                                <td class="warning"><strong>+45.9%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Total Outflow</td>
+                                <td>-$6.22M</td>
+                                <td>-$11.39M</td>
+                                <td class="negative"><strong>+83.0%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Avg Amount</td>
+                                <td>-$202.29</td>
+                                <td>-$212.59</td>
+                                <td>+5.1%</td>
+                            </tr>
+                            <tr>
+                                <td>Median Amount</td>
+                                <td>-$100.00</td>
+                                <td>-$111.00</td>
+                                <td>+11.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Concern:</strong> 5,124 new customers using API transfers. This represents money flowing out to competitors (likely Cash App, Venmo, Zelle).</p>
+                </div>
+
+                <div class="highlight">
+                    <h3>⚠️ Promotional Load - Dramatic Decline</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>September</th>
+                                <th>October</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Transactions</td>
+                                <td>28,157</td>
+                                <td>6,511</td>
+                                <td class="negative"><strong>-76.9%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Unique Customers</td>
+                                <td>25,056</td>
+                                <td>6,447</td>
+                                <td class="negative"><strong>-74.3%</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Total Amount</td>
+                                <td>+$708.5K</td>
+                                <td>+$50.4K</td>
+                                <td class="negative"><strong>-92.9%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Risk:</strong> Promotional spend cut by 93%. May impact customer acquisition and activation. Monitor impact on new customer quality.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Strategic Action Plan with KPIs</h2>
+
+                <h3>Priority 1: Reduce Churn (Target: <20% by Q1 2026)</h3>
+                <div class="action-box">
+                    <h4>Initiative: Low-Engagement Alert System</h4>
+                    <ul>
+                        <li><strong>Target:</strong> Customers with <20 transactions in current month</li>
+                        <li><strong>Action:</strong> Automated SMS/push alerts with incentives</li>
+                        <li><strong>Offer:</strong> "$5 bonus for 5 more transactions this month"</li>
+                        <li><strong>KPI:</strong> Reduce critical risk segment from 40,133 to <30,000 customers</li>
+                        <li><strong>Expected Impact:</strong> Save ~5,000 customers/month ($13.5M annual value)</li>
+                        <li><strong>Timeline:</strong> Launch by November 15, 2025</li>
+                        <li><strong>Budget:</strong> $200K/month in incentives</li>
+                        <li><strong>ROI:</strong> 68x return (save $13.5M for $200K investment)</li>
+                    </ul>
+                </div>
+
+                <h3>Priority 2: Direct Deposit Expansion (Target: 20% Penetration)</h3>
+                <div class="action-box">
+                    <h4>Initiative: Direct Deposit Acceleration Program</h4>
+                    <ul>
+                        <li><strong>Current:</strong> 11% penetration (12,511 customers)</li>
+                        <li><strong>Target:</strong> 20% penetration (22,566 customers) = +10,055 DD customers</li>
+                        <li><strong>Offer:</strong> $50 first DD bonus + $10/month ongoing</li>
+                        <li><strong>KPI 1:</strong> Add 1,000 new DD customers/month</li>
+                        <li><strong>KPI 2:</strong> Reduce DD customer churn to <4%</li>
+                        <li><strong>Expected Impact:</strong> +$27M in monthly deposits, 5.3x lower churn</li>
+                        <li><strong>Timeline:</strong> 10-month campaign</li>
+                        <li><strong>Budget:</strong> $503K for 10,055 customers ($50 + 10*$10)</li>
+                        <li><strong>ROI:</strong> 54x return ($27M annual increase for $503K)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Additional Strategic Initiatives</h2>
+
+                <h3>Priority 3: Product Cross-Sell Program</h3>
+                <div class="action-box">
+                    <h4>Initiative: "Unlock More" Campaign</h4>
+                    <ul>
+                        <li><strong>Target:</strong> Single product users (25,933 customers, 23% of base)</li>
+                        <li><strong>Goal:</strong> Move 30% to 3+ products = 7,780 customers</li>
+                        <li><strong>Strategy:</strong> Guided onboarding flow showing 3 complementary products</li>
+                        <li><strong>KPI:</strong> Reduce single product churn from 57.6% to <40%</li>
+                        <li><strong>Expected Churn Reduction:</strong> Save 4,563 customers annually</li>
+                        <li><strong>Timeline:</strong> Q4 2025 launch</li>
+                    </ul>
+                </div>
+
+                <h3>Priority 4: High-Value Customer VIP Program</h3>
+                <div class="action-box">
+                    <h4>Initiative: "MyBambu Elite"</h4>
+                    <ul>
+                        <li><strong>Target:</strong> $5K+ credits segment (2,624 customers driving $2.4M net value)</li>
+                        <li><strong>Churn Rate:</strong> Currently 0.8% - protect this segment</li>
+                        <li><strong>Features:</strong> Priority support, enhanced limits, exclusive benefits</li>
+                        <li><strong>KPI:</strong> Maintain <1% churn for high-value segment</li>
+                        <li><strong>Cost:</strong> $50/customer/year = $131K annual</li>
+                        <li><strong>Value Protected:</strong> $2.4M/month = $28.8M annual</li>
+                    </ul>
+                </div>
+
+                <h3>Priority 5: Weekend Engagement Strategy</h3>
+                <div class="action-box">
+                    <h4>Initiative: "Weekend Rewards"</h4>
+                    <ul>
+                        <li><strong>Problem:</strong> Weekends consistently lose $9M/month</li>
+                        <li><strong>Goal:</strong> Reduce weekend losses by 50% (+$4.5M/month)</li>
+                        <li><strong>Strategy:</strong> Weekend-specific cashback on deposits, peer transfers</li>
+                        <li><strong>KPI:</strong> Increase weekend deposit transactions by 30%</li>
+                        <li><strong>Timeline:</strong> Pilot November-December 2025</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Investigation & Monitoring Priorities</h2>
+
+                <h3>Priority 6: API Funds Transfer Investigation</h3>
+                <div class="highlight">
+                    <h4>Deep Dive Required</h4>
+                    <ul>
+                        <li><strong>Question 1:</strong> Which external platforms are customers transferring to?</li>
+                        <li><strong>Question 2:</strong> Are API transfer users also high-value in other areas?</li>
+                        <li><strong>Question 3:</strong> What triggers customers to move money out?</li>
+                        <li><strong>Action:</strong> Survey sample of 500 API users about usage patterns</li>
+                        <li><strong>Timeline:</strong> Complete by November 30, 2025</li>
+                        <li><strong>Potential Solutions:</strong>
+                            <ul>
+                                <li>Add friction (2FA) for large transfers</li>
+                                <li>Incentivize keeping funds in-platform</li>
+                                <li>Improve in-app features to reduce need for external transfers</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>Priority 7: Promotional Strategy Review</h3>
+                <div class="highlight">
+                    <h4>Monitor New Customer Quality</h4>
+                    <ul>
+                        <li><strong>Context:</strong> Promotional spend cut 93% in October</li>
+                        <li><strong>Monitor:</strong> Quality of 25,438 new October customers vs historical</li>
+                        <li><strong>Metrics:</strong> Transaction frequency, product adoption, retention after 90 days</li>
+                        <li><strong>Decision Point:</strong> January 2026 - evaluate if cost cuts hurt acquisition</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>KPI Dashboard for Tracking</h2>
+
+                <h3>Monthly Monitoring Metrics</h3>
+
+                <div class="two-column">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Overall Churn Rate</div>
+                        <div class="kpi-value">28.4%</div>
+                        <p><strong>Target:</strong> <20% by Q1 2026</p>
+                        <p><strong>Frequency:</strong> Monthly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Direct Deposit Penetration</div>
+                        <div class="kpi-value">11.1%</div>
+                        <p><strong>Target:</strong> 20% by August 2026</p>
+                        <p><strong>Frequency:</strong> Monthly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Critical Risk Customers</div>
+                        <div class="kpi-value">40,133</div>
+                        <p><strong>Target:</strong> <30,000</p>
+                        <p><strong>Frequency:</strong> Weekly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">High-Value Customer Count</div>
+                        <div class="kpi-value">2,624</div>
+                        <p><strong>Target:</strong> 3,500 by Q2 2026</p>
+                        <p><strong>Frequency:</strong> Monthly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Avg Transactions per Customer</div>
+                        <div class="kpi-value">18.9</div>
+                        <p><strong>Target:</strong> >25</p>
+                        <p><strong>Frequency:</strong> Weekly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Net Monthly Value</div>
+                        <div class="kpi-value">$4.3M</div>
+                        <p><strong>Target:</strong> >$10M</p>
+                        <p><strong>Frequency:</strong> Daily</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Single Product Users</div>
+                        <div class="kpi-value">23.0%</div>
+                        <p><strong>Target:</strong> <15%</p>
+                        <p><strong>Frequency:</strong> Monthly</p>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-title">Weekend Net Value</div>
+                        <div class="kpi-value">-$9.5M</div>
+                        <p><strong>Target:</strong> >-$5M</p>
+                        <p><strong>Frequency:</strong> Weekly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Executive Summary & Next Steps</h2>
+
+                <div class="insight-box">
+                    <h3>✅ What's Working</h3>
+                    <ul>
+                        <li><strong>Net value improved $4.9M</strong> - from -$566K to +$4.3M</li>
+                        <li><strong>High-value customers +74%</strong> - quality over quantity strategy working</li>
+                        <li><strong>Direct deposit growing 23%</strong> - core stickiness improving</li>
+                        <li><strong>Engaged customers profitable</strong> - high/medium frequency users now positive</li>
+                        <li><strong>Cross-border users sticky</strong> - 77% lower churn than domestic only</li>
+                    </ul>
+                </div>
+
+                <div class="highlight">
+                    <h3>⚠️ Critical Challenges</h3>
+                    <ul>
+                        <li><strong>28.4% churn rate</strong> - losing 1 in 3.5 customers monthly</li>
+                        <li><strong>API transfer surge</strong> - +83% outflow, competitors pulling funds</li>
+                        <li><strong>Low engagement = churn</strong> - <20 txns/month customers at extreme risk</li>
+                        <li><strong>Weekend economics</strong> - consistently -$9M/month on weekends</li>
+                        <li><strong>Promotional cuts</strong> - 93% reduction may hurt future acquisition</li>
+                    </ul>
+                </div>
+
+                <div class="action-box">
+                    <h3>🎯 Immediate Actions (Next 30 Days)</h3>
+                    <ol>
+                        <li><strong>Launch Low-Engagement Alert System</strong> - Target 58,230 at-risk customers</li>
+                        <li><strong>Direct Deposit $50 Bonus Campaign</strong> - Goal: 1,000 new DD customers in November</li>
+                        <li><strong>API Transfer Investigation</strong> - Survey 500 users, understand outflow drivers</li>
+                        <li><strong>Protect High-Value Segment</strong> - Launch MyBambu Elite for 2,624 top customers</li>
+                        <li><strong>Weekend Pilot Program</strong> - Test cashback on weekend deposits</li>
+                    </ol>
+                </div>
+
+                <div class="footer">
+                    <p><strong>ROI Projection:</strong> Combined initiatives could save 10,000+ customers annually ($27M value) for $1.5M investment = 18x return</p>
+                    <p>Next Review: November 30, 2025 • Generated with Claude Code</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

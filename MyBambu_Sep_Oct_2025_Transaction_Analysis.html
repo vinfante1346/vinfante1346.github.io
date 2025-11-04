@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu Transaction Analysis - Sep vs Oct 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            page-break-after: always;
+            border-bottom: 3px solid #e0e0e0;
+        }
+
+        .slide-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .slide-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .slide-header .subtitle {
+            font-size: 1.8em;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .slide-header .metadata {
+            font-size: 1.2em;
+            opacity: 0.85;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            color: #764ba2;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card h4 {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .metric-change {
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+
+        .positive {
+            color: #22c55e;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+
+        .neutral {
+            color: #f59e0b;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .comparison-table td:nth-child(4) {
+            font-weight: 600;
+        }
+
+        .insight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .insight-box.critical {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .insight-box.positive {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .insight-box h4 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.15em;
+            line-height: 1.6;
+        }
+
+        .bullet-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-highlight .big-number {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .stat-highlight .description {
+            font-size: 1.4em;
+            opacity: 0.95;
+        }
+
+        .transaction-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .transaction-type {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .transaction-type:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .transaction-type h5 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .transaction-type .count {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin: 8px 0;
+        }
+
+        .transaction-type .amount {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .recommendations h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+        }
+
+        .recommendations li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .recommendations li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        @media print {
+            .slide {
+                page-break-inside: avoid;
+            }
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide slide-header">
+            <div class="logo">MyBambu</div>
+            <h1>Transaction Analysis</h1>
+            <div class="subtitle">September vs October 2025</div>
+            <div class="subtitle">Performance Overview</div>
+            <div class="metadata">
+                Generated: November 4, 2025<br>
+                Data Source: Snowflake Analytics Platform
+            </div>
+        </div>
+
+        <!-- Slide 2: Executive Summary -->
+        <div class="slide">
+            <h2>Executive Summary</h2>
+
+            <div class="stat-highlight">
+                <div class="description">Net Transaction Value Improvement</div>
+                <div class="big-number">$4.9M</div>
+                <div class="description">From -$566K (Sep) to +$4.3M (Oct)</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Transaction Volume</h4>
+                    <div class="metric-value">2.13M</div>
+                    <div class="metric-change negative">-0.3% vs September</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Active Customers</h4>
+                    <div class="metric-value">112.8K</div>
+                    <div class="metric-change negative">-7.6% vs September</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Avg Txns/Customer</h4>
+                    <div class="metric-value">18.9</div>
+                    <div class="metric-change positive">+7.8% vs September</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Credit Volume</h4>
+                    <div class="metric-value">$85.7M</div>
+                    <div class="metric-change positive">+10.7% vs September</div>
+                </div>
+            </div>
+
+            <div class="insight-box positive">
+                <h4>Key Takeaway</h4>
+                <p>Despite a decline in customer count, transaction value shifted dramatically positive with remaining customers showing higher engagement and improved account health.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Detailed Metrics Comparison -->
+        <div class="slide">
+            <h2>Detailed Metrics Comparison</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>September 2025</th>
+                        <th>October 2025</th>
+                        <th>Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Total Transactions</strong></td>
+                        <td>2,136,803</td>
+                        <td>2,129,614</td>
+                        <td class="negative">-7,189 (-0.3%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unique Customers</strong></td>
+                        <td>122,078</td>
+                        <td>112,831</td>
+                        <td class="negative">-9,247 (-7.6%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Transaction Value</strong></td>
+                        <td>-$565,935</td>
+                        <td>$4,343,888</td>
+                        <td class="positive">+$4.9M</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Avg Transaction Amount</strong></td>
+                        <td>-$0.26</td>
+                        <td>$2.04</td>
+                        <td class="positive">+$2.30</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Credit Transactions</strong></td>
+                        <td>471,856</td>
+                        <td>429,898</td>
+                        <td class="negative">-41,958 (-8.9%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Debit Transactions</strong></td>
+                        <td>1,664,947</td>
+                        <td>1,699,716</td>
+                        <td class="positive">+34,769 (+2.1%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Credits</strong></td>
+                        <td>$77,363,356</td>
+                        <td>$85,661,679</td>
+                        <td class="positive">+$8.3M (+10.7%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Debits</strong></td>
+                        <td>-$77,929,291</td>
+                        <td>-$81,317,791</td>
+                        <td class="negative">-$3.4M (+4.3%)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Txns per Customer</strong></td>
+                        <td>17.5</td>
+                        <td>18.9</td>
+                        <td class="positive">+1.4 (+7.8%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 4: Customer Engagement Analysis -->
+        <div class="slide">
+            <h2>Customer Engagement Analysis</h2>
+
+            <div class="insight-box critical">
+                <h4>⚠️ Customer Retention Challenge</h4>
+                <p><strong>9,247 fewer active customers</strong> in October represents a 7.6% decline month-over-month. This aligns with YTD dropout data showing 34,671 customers lost in October.</p>
+            </div>
+
+            <div class="insight-box positive">
+                <h4>✓ Increased Customer Activity</h4>
+                <p>Remaining customers are <strong>7.8% more active</strong>, averaging 18.9 transactions per customer versus 17.5 in September. This suggests improved engagement among the core user base.</p>
+            </div>
+
+            <h3>Key Observations</h3>
+            <ul class="bullet-list">
+                <li>Customer base contracted by 7.6% (122K → 113K)</li>
+                <li>Transaction volume remained relatively stable (-0.3%)</li>
+                <li>Per-customer transaction frequency increased significantly (+7.8%)</li>
+                <li>Indicates a more engaged, but smaller, customer base</li>
+                <li>Debit-to-credit ratio remains at approximately 4:1</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: Transaction Value Analysis -->
+        <div class="slide">
+            <h2>Transaction Value Dynamics</h2>
+
+            <div class="stat-highlight">
+                <div class="description">Net Value Swing</div>
+                <div class="big-number">$4.9M</div>
+                <div class="description">September: -$566K → October: +$4.3M</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Incoming Value (Credits)</h4>
+                    <div class="metric-value">$85.7M</div>
+                    <div class="metric-change positive">+10.7% growth</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Outgoing Value (Debits)</h4>
+                    <div class="metric-value">$81.3M</div>
+                    <div class="metric-change">+4.3% growth</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Max Transaction</h4>
+                    <div class="metric-value">$15,000</div>
+                    <div class="metric-change positive">+50% vs $10K</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Avg Transaction</h4>
+                    <div class="metric-value">$2.04</div>
+                    <div class="metric-change positive">From -$0.26</div>
+                </div>
+            </div>
+
+            <h3>Key Insights</h3>
+            <ul class="bullet-list">
+                <li>Credits grew faster than debits (10.7% vs 4.3%)</li>
+                <li>Net account balances improving across customer base</li>
+                <li>Higher value transactions occurring (max up 50%)</li>
+                <li>Overall account health trending positive</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Top Transaction Types -->
+        <div class="slide">
+            <h2>Top Transaction Types</h2>
+
+            <h3>September 2025</h3>
+            <div class="transaction-types">
+                <div class="transaction-type">
+                    <h5>1. Purchase with PIN</h5>
+                    <div class="count">1,166,258 txns</div>
+                    <div class="amount">-$34.7M</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>2. Visa Money Transfer</h5>
+                    <div class="count">122,723 txns</div>
+                    <div class="amount">$10.1M</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>3. Cash Delivery</h5>
+                    <div class="count">94,050 txns</div>
+                    <div class="amount">$18.7M</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>4. Pre-auth Completion</h5>
+                    <div class="count">86,651 txns</div>
+                    <div class="amount">-$2.8M</div>
+                </div>
+            </div>
+
+            <h3>October 2025</h3>
+            <div class="transaction-types">
+                <div class="transaction-type">
+                    <h5>1. Purchase with PIN</h5>
+                    <div class="count">1,199,866 txns</div>
+                    <div class="amount">-$36.5M</div>
+                    <small class="positive">↑ 2.9%</small>
+                </div>
+                <div class="transaction-type">
+                    <h5>2. Visa Money Transfer</h5>
+                    <div class="count">130,510 txns</div>
+                    <div class="amount">$11.2M</div>
+                    <small class="positive">↑ 6.3%</small>
+                </div>
+                <div class="transaction-type">
+                    <h5>3. Cash Delivery</h5>
+                    <div class="count">94,577 txns</div>
+                    <div class="amount">$19.0M</div>
+                    <small class="positive">↑ 0.6%</small>
+                </div>
+                <div class="transaction-type">
+                    <h5>4. Pre-auth Completion</h5>
+                    <div class="count">85,137 txns</div>
+                    <div class="amount">-$2.8M</div>
+                    <small class="negative">↓ 1.7%</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Notable Changes -->
+        <div class="slide">
+            <h2>Notable Transaction Changes</h2>
+
+            <h3>New Entries in Top 10</h3>
+            <div class="insight-box">
+                <h4>API Funds Transfer</h4>
+                <p><strong>53,589 transactions | -$11.4M</strong></p>
+                <p>New entry in October top 10, indicating increased programmatic transfer activity</p>
+            </div>
+
+            <h3>Significant Growth</h3>
+            <div class="transaction-types">
+                <div class="transaction-type">
+                    <h5>Direct Deposits CFSB</h5>
+                    <div class="count">36,188 → 42,949</div>
+                    <div class="amount positive">+18.7% growth</div>
+                    <div class="amount">$27.5M → $33.9M</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>Visa Money Transfer</h5>
+                    <div class="count">122,723 → 130,510</div>
+                    <div class="amount positive">+6.3% growth</div>
+                    <div class="amount">$10.1M → $11.2M</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>Purchase with PIN</h5>
+                    <div class="count">1.17M → 1.20M</div>
+                    <div class="amount positive">+2.9% growth</div>
+                    <div class="amount">Core product remains stable</div>
+                </div>
+                <div class="transaction-type">
+                    <h5>ATM Withdrawals</h5>
+                    <div class="count">60,958 → 62,977</div>
+                    <div class="amount positive">+3.3% growth</div>
+                    <div class="amount">$11.6M → $12.1M</div>
+                </div>
+            </div>
+
+            <h3>Dropped from Top 10</h3>
+            <ul class="bullet-list">
+                <li>Prize Pool (55,314 txns in Sep, $73.5K) - no longer in top 10</li>
+                <li>Bank Withdrawal activity decreased relative to other types</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: Critical Concerns -->
+        <div class="slide">
+            <h2>Areas of Concern</h2>
+
+            <div class="insight-box critical">
+                <h4>1. Customer Retention Crisis</h4>
+                <ul class="bullet-list">
+                    <li>7.6% monthly decline in active customers</li>
+                    <li>34,671 customers lost in October (dropout data)</li>
+                    <li>Trend shows acceleration from 29,784 in September</li>
+                    <li>Year-to-date: 385,707 total customer losses</li>
+                </ul>
+            </div>
+
+            <div class="insight-box critical">
+                <h4>2. High Debit-to-Credit Ratio</h4>
+                <ul class="bullet-list">
+                    <li>80% of transactions are debits (money out)</li>
+                    <li>1.7M debit transactions vs 430K credits</li>
+                    <li>Ratio of approximately 4:1 sustained month-over-month</li>
+                    <li>Suggests limited incoming value for many customers</li>
+                </ul>
+            </div>
+
+            <div class="insight-box critical">
+                <h4>3. Declining Credit Transactions</h4>
+                <ul class="bullet-list">
+                    <li>Credit transaction count down 8.9%</li>
+                    <li>472K → 430K credit transactions</li>
+                    <li>Despite value growth (+10.7%), fewer incoming transactions</li>
+                    <li>May indicate concentration among fewer customers</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 9: Positive Indicators -->
+        <div class="slide">
+            <h2>Positive Indicators</h2>
+
+            <div class="insight-box positive">
+                <h4>1. Net Transaction Value Improvement</h4>
+                <ul class="bullet-list">
+                    <li>$4.9M swing from negative to positive territory</li>
+                    <li>Indicates healthier account balances overall</li>
+                    <li>Credits growing faster than debits (10.7% vs 4.3%)</li>
+                </ul>
+            </div>
+
+            <div class="insight-box positive">
+                <h4>2. Increased Customer Engagement</h4>
+                <ul class="bullet-list">
+                    <li>+7.8% increase in transactions per customer</li>
+                    <li>17.5 → 18.9 average transactions per customer</li>
+                    <li>Core customer base showing stronger engagement</li>
+                    <li>Product stickiness improving among active users</li>
+                </ul>
+            </div>
+
+            <div class="insight-box positive">
+                <h4>3. Core Products Remain Stable</h4>
+                <ul class="bullet-list">
+                    <li>Purchase with PIN growing (+2.9%)</li>
+                    <li>Money transfer products increasing (+6.3%)</li>
+                    <li>Direct deposits up significantly (+18.7%)</li>
+                    <li>Cash delivery maintaining volume</li>
+                </ul>
+            </div>
+
+            <div class="insight-box positive">
+                <h4>4. Higher Value Transactions</h4>
+                <ul class="bullet-list">
+                    <li>Maximum transaction increased 50% ($10K → $15K)</li>
+                    <li>Average transaction improved dramatically (+$2.30)</li>
+                    <li>Suggests customer base handling larger amounts</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Strategic Recommendations -->
+        <div class="slide">
+            <h2>Strategic Recommendations</h2>
+
+            <div class="recommendations">
+                <h3>Immediate Actions (Next 30 Days)</h3>
+                <ul>
+                    <li>Launch customer retention campaign targeting at-risk segments</li>
+                    <li>Analyze the 34,671 October dropouts for common patterns</li>
+                    <li>Implement win-back program for recently churned customers</li>
+                    <li>Enhance onboarding for new customers to improve early engagement</li>
+                </ul>
+            </div>
+
+            <div class="recommendations" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <h3>Mid-Term Initiatives (90 Days)</h3>
+                <ul>
+                    <li>Develop incentive programs to increase credit transaction frequency</li>
+                    <li>Create targeted campaigns for direct deposit enrollment</li>
+                    <li>Investigate Prize Pool decline and potential re-engagement</li>
+                    <li>Enhance API Funds Transfer capabilities (new growth area)</li>
+                    <li>Implement loyalty rewards for high-engagement customers</li>
+                </ul>
+            </div>
+
+            <div class="recommendations" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                <h3>Long-Term Strategy (6 Months+)</h3>
+                <ul>
+                    <li>Rebalance debit-to-credit ratio through product innovation</li>
+                    <li>Develop features that increase incoming value for customers</li>
+                    <li>Build predictive churn model to proactively identify at-risk customers</li>
+                    <li>Expand direct deposit partnerships and incentives</li>
+                    <li>Focus on customer lifetime value optimization</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Key Focus Areas -->
+        <div class="slide">
+            <h2>Key Focus Areas for Q4 2025</h2>
+
+            <h3>1. Customer Retention</h3>
+            <div class="insight-box">
+                <p><strong>Priority: CRITICAL</strong></p>
+                <ul class="bullet-list">
+                    <li>Reduce monthly churn rate from 7.6% to under 5%</li>
+                    <li>Target: Save 5,000+ customers per month</li>
+                    <li>Implement retention analytics dashboard</li>
+                    <li>A/B test retention campaigns</li>
+                </ul>
+            </div>
+
+            <h3>2. Balance Incoming vs Outgoing Value</h3>
+            <div class="insight-box">
+                <p><strong>Priority: HIGH</strong></p>
+                <ul class="bullet-list">
+                    <li>Goal: Improve debit-to-credit ratio from 4:1 to 3:1</li>
+                    <li>Increase direct deposit adoption by 25%</li>
+                    <li>Promote money transfer services (+6.3% shows promise)</li>
+                    <li>Incentivize incoming transactions</li>
+                </ul>
+            </div>
+
+            <h3>3. Capitalize on Engagement Growth</h3>
+            <div class="insight-box positive">
+                <p><strong>Priority: MEDIUM</strong></p>
+                <ul class="bullet-list">
+                    <li>Leverage 7.8% engagement increase</li>
+                    <li>Cross-sell additional products to active users</li>
+                    <li>Build on $4.9M net value improvement</li>
+                    <li>Expand high-performing transaction types</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusion -->
+        <div class="slide">
+            <h2>Conclusion & Next Steps</h2>
+
+            <div class="stat-highlight">
+                <div class="description">Overall Assessment</div>
+                <div class="big-number" style="font-size: 3em;">Mixed Signals</div>
+                <div class="description">Strong engagement gains offset by significant customer losses</div>
+            </div>
+
+            <h3>The Bottom Line</h3>
+            <ul class="bullet-list">
+                <li><strong>Positive:</strong> Transaction value improved dramatically ($4.9M swing)</li>
+                <li><strong>Positive:</strong> Customer engagement up 7.8% among active users</li>
+                <li><strong>Positive:</strong> Core products growing and stable</li>
+                <li><strong>Concern:</strong> Losing customers at 7.6% monthly rate</li>
+                <li><strong>Concern:</strong> 385K+ customers lost year-to-date</li>
+                <li><strong>Concern:</strong> Heavy debit activity (4:1 ratio)</li>
+            </ul>
+
+            <h3>Immediate Action Items</h3>
+            <div class="metrics-grid" style="margin-top: 30px;">
+                <div class="metric-card">
+                    <h4>Week 1</h4>
+                    <p>Deep dive analysis on October dropout cohort</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Week 2</h4>
+                    <p>Launch retention campaign pilot</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Week 3</h4>
+                    <p>Implement churn prediction model</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Week 4</h4>
+                    <p>Review and iterate based on results</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Slide -->
+        <div class="slide slide-header">
+            <div class="logo">MyBambu</div>
+            <h1 style="font-size: 2.5em;">Questions & Discussion</h1>
+            <div class="subtitle" style="font-size: 1.3em; margin-top: 50px;">
+                Transaction Analysis Team<br>
+                November 4, 2025
+            </div>
+            <div class="metadata" style="margin-top: 80px;">
+                Data Source: Snowflake Analytics Platform<br>
+                MYBAMBU_PROD.BAMBU_MART_GALILEO<br>
+                Contact: analytics@mybambu.com
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2025 MyBambu. Confidential - Internal Use Only
+        </div>
+    </div>
+</body>
+</html>

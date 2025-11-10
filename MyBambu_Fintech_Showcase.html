@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu - Fintech Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --teal: #00BFA5;
+            --navy: #003B5C;
+            --mybambu-green: #27FB6B;
+            --mybambu-blue: #00052E;
+            --white: #FFFFFF;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-600: #475569;
+            --gray-900: #0F172A;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--gray-100) 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Scroll container */
+        .scroll-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background animations */
+        .bg-orbs {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--teal);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--mybambu-green);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--navy);
+            top: 50%;
+            right: -100px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+
+        /* Content container */
+        .content {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.75rem;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Logo animation */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: logoReveal 1.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes logoReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-my {
+            color: var(--navy);
+        }
+
+        .logo-bambu {
+            color: var(--mybambu-green);
+            position: relative;
+        }
+
+        .logo-bambu::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--mybambu-green), var(--teal));
+            transform: scaleX(0);
+            animation: underline 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes underline {
+            to { transform: scaleX(1); }
+        }
+
+        /* Interactive cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal), var(--mybambu-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 191, 165, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .card-number.counting {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        /* Expandable details */
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .card.expanded .card-details {
+            max-height: 300px;
+        }
+
+        .expand-hint {
+            font-size: 0.75rem;
+            color: var(--teal);
+            margin-top: 1rem;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--teal), var(--mybambu-green));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 0 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.03);
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--mybambu-green);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 4px var(--white), 0 0 0 8px var(--mybambu-green);
+            z-index: 10;
+        }
+
+        .timeline-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+        }
+
+        /* Tech stack diagram */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-layer {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .tech-layer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 191, 165, 0.15);
+        }
+
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+        }
+
+        /* Interactive chart */
+        .chart-container {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin-top: 3rem;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 300px;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--mybambu-green), var(--teal));
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            transform-origin: bottom;
+            animation: barGrow 1s ease forwards;
+        }
+
+        @keyframes barGrow {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.05);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            background: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bar:hover .bar-value {
+            opacity: 1;
+        }
+
+        /* Progress bars */
+        .progress-bar {
+            background: var(--gray-200);
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--mybambu-green));
+            border-radius: 10px;
+            transition: width 1.5s ease;
+            animation: progressGrow 1.5s ease forwards;
+        }
+
+        @keyframes progressGrow {
+            from { width: 0; }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--mybambu-blue));
+            border-radius: 24px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(39, 251, 107, 0.1), transparent);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            background: linear-gradient(135deg, var(--mybambu-green), var(--teal));
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 1.125rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(39, 251, 107, 0.3);
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(39, 251, 107, 0.4);
+        }
+
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--white);
+        }
+
+        .nav-dot:hover {
+            background: var(--teal);
+            transform: scale(1.3);
+        }
+
+        .nav-dot.active {
+            background: var(--mybambu-green);
+            transform: scale(1.5);
+            box-shadow: 0 0 15px rgba(39, 251, 107, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .tech-stack { grid-template-columns: 1fr; }
+            .timeline-item {
+                flex-direction: column !important;
+            }
+            .timeline-content {
+                margin: 1rem 0;
+            }
+        }
+
+        /* Glow effects */
+        .glow {
+            position: relative;
+        }
+
+        .glow::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(39, 251, 107, 0.2), transparent);
+            filter: blur(20px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation dots -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- Scroll container -->
+    <div class="scroll-container" id="scrollContainer">
+
+        <!-- Slide 1: Intro -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="content" style="text-align: center;">
+                <div class="logo-container">
+                    <div class="logo">
+                        <span class="logo-my">My</span><span class="logo-bambu">Bambu</span>
+                    </div>
+                </div>
+                <p class="tagline">Tu cuenta para todo</p>
+                <h1>Powering Financial<br>Inclusion at Scale</h1>
+                <p class="subtitle">48.4M transactions • 558K customers • $3.7B processed</p>
+
+                <!-- Quick stats -->
+                <div class="cards-grid" style="max-width: 900px; margin: 4rem auto 0;">
+                    <div class="card glow">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="32" r="30" stroke="#00BFA5" stroke-width="2"/>
+                            <path d="M32 12v20l15 10" stroke="#27FB6B" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        <div class="card-number" data-target="70000">0</div>
+                        <div class="card-description">Daily Transactions</div>
+                    </div>
+                    <div class="card glow">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <rect x="10" y="20" width="44" height="28" rx="4" stroke="#00BFA5" stroke-width="2"/>
+                            <rect x="10" y="28" width="44" height="8" fill="#27FB6B" opacity="0.3"/>
+                            <circle cx="22" cy="36" r="4" fill="#27FB6B"/>
+                        </svg>
+                        <div class="card-number" data-target="558">0</div>
+                        <div class="card-description">Thousand Customers</div>
+                    </div>
+                    <div class="card glow">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M10 40l12-15 10 10 12-15 10 10" stroke="#00BFA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="22" cy="25" r="3" fill="#27FB6B"/>
+                            <circle cx="32" cy="35" r="3" fill="#27FB6B"/>
+                            <circle cx="44" cy="20" r="3" fill="#27FB6B"/>
+                            <circle cx="54" cy="30" r="3" fill="#27FB6B"/>
+                        </svg>
+                        <div class="card-number" data-target="330">0</div>
+                        <div class="card-description">% Growth YoY</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Key Metrics Dashboard -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-2"></div>
+            </div>
+            <div class="content">
+                <h2>Key Performance Metrics</h2>
+                <p class="subtitle">Real-time business intelligence dashboard</p>
+
+                <div class="cards-grid">
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 10v44M10 32h44" stroke="#00BFA5" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="32" cy="32" r="20" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <div class="card-label">Total Transaction Volume</div>
+                        <div class="card-number" data-target="3.7" data-suffix="B">$0</div>
+                        <div class="card-description">Since inception (June 2023)</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                <strong>Credits:</strong> $4.3B<br>
+                                <strong>Debits:</strong> $0.6B<br>
+                                <strong>Average Transaction:</strong> $76.47
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <circle cx="20" cy="20" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="44" cy="20" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="32" cy="44" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <path d="M26 26l12 12M38 26l-12 12" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <div class="card-label">Active Customers</div>
+                        <div class="card-number" data-target="558" data-suffix="K">0</div>
+                        <div class="card-description">All-time unique customers</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                <strong>Retention:</strong> 59.3%<br>
+                                <strong>Churn Rate:</strong> 28.4%<br>
+                                <strong>New (Oct '25):</strong> 25,438
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M10 54h44V20L32 10 10 20v34z" stroke="#00BFA5" stroke-width="2"/>
+                            <rect x="20" y="35" width="24" height="19" fill="#27FB6B" opacity="0.3"/>
+                            <path d="M18 30h28M18 38h28M18 46h28" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <div class="card-label">Total Transactions</div>
+                        <div class="card-number" data-target="48.4" data-suffix="M">0</div>
+                        <div class="card-description">Processed since launch</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                <strong>2023:</strong> 4.8M<br>
+                                <strong>2024:</strong> 20.6M<br>
+                                <strong>2025:</strong> 23.0M (YTD)
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M10 44l10-8 10 8 10-15 14 10" stroke="#00BFA5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="20" cy="36" r="3" fill="#27FB6B"/>
+                            <circle cx="30" cy="44" r="3" fill="#27FB6B"/>
+                            <circle cx="40" cy="29" r="3" fill="#27FB6B"/>
+                            <circle cx="54" cy="39" r="3" fill="#27FB6B"/>
+                        </svg>
+                        <div class="card-label">Revenue per User</div>
+                        <div class="card-number" data-target="76.47" data-prefix="$">$0</div>
+                        <div class="card-description">Average transaction value</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                <strong>High-value (>$5K):</strong> 2,624<br>
+                                <strong>Growth:</strong> +74% MoM<br>
+                                <strong>Avg per day:</strong> $5.3M
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <rect x="15" y="25" width="34" height="24" rx="3" stroke="#00BFA5" stroke-width="2"/>
+                            <path d="M23 33h18M23 41h12" stroke="#27FB6B" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="38" cy="41" r="2" fill="#27FB6B"/>
+                        </svg>
+                        <div class="card-label">Product Categories</div>
+                        <div class="card-number" data-target="13">0</div>
+                        <div class="card-description">Across 75 transaction types</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                Card Services • Transfers<br>
+                                Cross-Border • ATM<br>
+                                Rewards • Mobile Top-ups
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" onclick="this.classList.toggle('expanded')">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="32" r="20" stroke="#00BFA5" stroke-width="2"/>
+                            <path d="M32 12v20h15" stroke="#27FB6B" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="32" cy="32" r="3" fill="#27FB6B"/>
+                        </svg>
+                        <div class="card-label">Retention Rate</div>
+                        <div class="card-number" data-target="59.3" data-suffix="%">0</div>
+                        <div class="card-description">Customer retention (Sep-Oct)</div>
+                        <div class="expand-hint">↓ Tap to expand</div>
+                        <div class="card-details">
+                            <p style="margin: 0.5rem 0; color: var(--gray-600);">
+                                <strong>Target:</strong> <20% churn by Q1'26<br>
+                                <strong>Direct Deposit:</strong> 5.3x lower churn<br>
+                                <strong>3+ Products:</strong> 3.5x retention
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Growth Story -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="content">
+                <h2>Our Growth Journey</h2>
+                <p class="subtitle">From launch to market leadership</p>
+
+                <div class="timeline">
+                    <div class="timeline-line"></div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <svg class="timeline-icon" viewBox="0 0 64 64" fill="none">
+                                <path d="M32 10l8 16h16l-13 13 5 17-16-10-16 10 5-17-13-13h16l8-16z" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.2"/>
+                            </svg>
+                            <h3>June 2023 - Launch</h3>
+                            <p style="color: var(--gray-600);">Platform goes live with core banking features. First 50K customers onboarded in 6 months.</p>
+                            <div style="margin-top: 1rem; font-weight: 700; color: var(--teal);">4.8M transactions</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <svg class="timeline-icon" viewBox="0 0 64 64" fill="none">
+                                <path d="M10 40 L20 30 L30 35 L40 20 L54 25" stroke="#00BFA5" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="20" cy="30" r="3" fill="#27FB6B"/>
+                                <circle cx="30" cy="35" r="3" fill="#27FB6B"/>
+                                <circle cx="40" cy="20" r="3" fill="#27FB6B"/>
+                                <circle cx="54" cy="25" r="3" fill="#27FB6B"/>
+                            </svg>
+                            <h3>2024 - Explosive Growth</h3>
+                            <p style="color: var(--gray-600);">330% YoY growth. Expanded to 75 transaction types and 20+ countries. Direct deposit launches.</p>
+                            <div style="margin-top: 1rem; font-weight: 700; color: var(--teal);">20.6M transactions</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <svg class="timeline-icon" viewBox="0 0 64 64" fill="none">
+                                <circle cx="32" cy="32" r="20" stroke="#00BFA5" stroke-width="2"/>
+                                <path d="M32 22v10l7 7" stroke="#27FB6B" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <h3>2025 - Scale & Optimization</h3>
+                            <p style="color: var(--gray-600);">558K total customers. Focus on retention strategies and product diversification. 82x ROI on initiatives.</p>
+                            <div style="margin-top: 1rem; font-weight: 700; color: var(--teal);">23.0M transactions (YTD)</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <svg class="timeline-icon" viewBox="0 0 64 64" fill="none">
+                                <path d="M32 10v20M22 20h20M27 15h10M22 30h20" stroke="#00BFA5" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M15 40h34v10H15z" stroke="#27FB6B" stroke-width="2" fill="#27FB6B" opacity="0.2"/>
+                            </svg>
+                            <h3>Q1 2026 - Strategic Targets</h3>
+                            <p style="color: var(--gray-600);">Reduce churn to <20%. Achieve 20% DD penetration. Scale to 1M customers with enhanced product suite.</p>
+                            <div style="margin-top: 1rem; font-weight: 700; color: var(--teal);">Target: 30M+ transactions</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Tech Stack -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-2"></div>
+            </div>
+            <div class="content">
+                <h2>Technology Architecture</h2>
+                <p class="subtitle">Built for scale, security, and speed</p>
+
+                <div class="tech-stack">
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 10L10 20v20c0 15 10 22 22 24 12-2 22-9 22-24V20L32 10z" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <path d="M28 32l4 4 8-8" stroke="#27FB6B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <h3>Security & Compliance</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            PCI-DSS Certified<br>
+                            SOC 2 Type II<br>
+                            End-to-end Encryption
+                        </p>
+                    </div>
+
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="20" r="8" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <circle cx="18" cy="40" r="6" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <circle cx="46" cy="40" r="6" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <path d="M32 28v4M32 32l-10 5M32 32l10 5" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <h3>Microservices</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            Kubernetes Orchestration<br>
+                            Docker Containers<br>
+                            99.99% Uptime SLA
+                        </p>
+                    </div>
+
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <rect x="15" y="20" width="34" height="28" rx="3" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <path d="M25 30h14M25 35h14M25 40h10" stroke="#27FB6B" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <h3>Data Platform</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            Snowflake Data Warehouse<br>
+                            Real-time Analytics<br>
+                            ML-Powered Insights
+                        </p>
+                    </div>
+
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 10v44M10 32h44" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="32" cy="18" r="4" fill="#27FB6B"/>
+                            <circle cx="32" cy="46" r="4" fill="#27FB6B"/>
+                            <circle cx="18" cy="32" r="4" fill="#27FB6B"/>
+                            <circle cx="46" cy="32" r="4" fill="#27FB6B"/>
+                        </svg>
+                        <h3>API Gateway</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            RESTful & GraphQL<br>
+                            OAuth 2.0 / JWT<br>
+                            Rate Limiting & Caching
+                        </p>
+                    </div>
+
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <ellipse cx="32" cy="32" rx="20" ry="12" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <ellipse cx="32" cy="32" rx="12" ry="20" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="32" cy="32" r="4" fill="#27FB6B"/>
+                        </svg>
+                        <h3>Cloud Infrastructure</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            AWS Multi-Region<br>
+                            Auto-scaling<br>
+                            CDN Global Edge
+                        </p>
+                    </div>
+
+                    <div class="tech-layer">
+                        <svg class="tech-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 12L12 24v20l20 12 20-12V24L32 12z" stroke="#00BFA5" stroke-width="2" fill="#27FB6B" opacity="0.1"/>
+                            <path d="M32 32v12M22 27l10 5M42 27l-10 5" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <h3>Payment Processing</h3>
+                        <p style="color: var(--gray-600); margin-top: 0.5rem;">
+                            Galileo Integration<br>
+                            Real-time Settlement<br>
+                            Multi-currency Support
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Revenue Drivers -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="content">
+                <h2>Revenue Growth Drivers</h2>
+                <p class="subtitle">Strategic initiatives with proven ROI</p>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 2rem;">Initiative ROI Analysis</h3>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 70%;">
+                            <div class="bar-value">$13.5M saved</div>
+                            <div class="bar-label">Churn Reduction</div>
+                        </div>
+                        <div class="bar" style="height: 100%;">
+                            <div class="bar-value">$27M revenue</div>
+                            <div class="bar-label">Direct Deposit</div>
+                        </div>
+                        <div class="bar" style="height: 50%;">
+                            <div class="bar-value">4,563 saved</div>
+                            <div class="bar-label">Cross-Sell</div>
+                        </div>
+                        <div class="bar" style="height: 85%;">
+                            <div class="bar-value">82x ROI</div>
+                            <div class="bar-label">Combined</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <div class="card-label">Initiative Investment</div>
+                        <div class="card-number" data-target="703" data-prefix="$" data-suffix="K">$0</div>
+                        <div class="card-description">Total strategic spend</div>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">Churn Alert System</span>
+                                <span style="font-size: 0.875rem; font-weight: 700; color: var(--navy);">$200K</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 28%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">DD Bonus Program</span>
+                                <span style="font-size: 0.875rem; font-weight: 700; color: var(--navy);">$503K</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-label">Expected Annual Return</div>
+                        <div class="card-number" data-target="40.5" data-prefix="$" data-suffix="M+">$0</div>
+                        <div class="card-description">Revenue & savings combined</div>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">Revenue Increase</span>
+                                <span style="font-size: 0.875rem; font-weight: 700; color: var(--navy);">$27M</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem; color: var(--gray-600);">Cost Savings</span>
+                                <span style="font-size: 0.875rem; font-weight: 700; color: var(--navy);">$13.5M</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 33%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-label">Payback Period</div>
+                        <div class="card-number" data-target="1" data-suffix=" mo"><1</div>
+                        <div class="card-description">Time to ROI positive</div>
+                        <div style="margin-top: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px;">
+                            <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.5rem;">Monthly Impact</div>
+                            <div style="font-size: 1.25rem; font-weight: 700; color: var(--teal);">$3.4M</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Forecast Snapshot -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-1"></div>
+            </div>
+            <div class="content">
+                <h2>2026 Forecast</h2>
+                <p class="subtitle">Projected growth and strategic targets</p>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 2rem;">Transaction Volume Projection</h3>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 23%; opacity: 0.5;">
+                            <div class="bar-value" style="opacity: 1;">4.8M</div>
+                            <div class="bar-label">2023</div>
+                        </div>
+                        <div class="bar" style="height: 100%; opacity: 0.5;">
+                            <div class="bar-value" style="opacity: 1;">20.6M</div>
+                            <div class="bar-label">2024</div>
+                        </div>
+                        <div class="bar" style="height: 112%; opacity: 0.7;">
+                            <div class="bar-value" style="opacity: 1;">23.0M</div>
+                            <div class="bar-label">2025</div>
+                        </div>
+                        <div class="bar" style="height: 145%; background: linear-gradient(180deg, #00BFA5, #003B5C); animation-delay: 0.5s;">
+                            <div class="bar-value" style="opacity: 1;">30M+</div>
+                            <div class="bar-label" style="font-weight: 800; color: var(--teal);">2026 Target</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cards-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M32 10L10 22v20c0 12 22 22 22 22s22-10 22-22V22L32 10z" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="32" cy="32" r="8" fill="#27FB6B" opacity="0.3"/>
+                        </svg>
+                        <div class="card-label">Q1 2026 Target</div>
+                        <div class="card-number" data-target="20" data-suffix="%"><20</div>
+                        <div class="card-description">Churn rate reduction from 28.4%</div>
+                    </div>
+
+                    <div class="card">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M20 30h24M20 36h24M20 42h16" stroke="#00BFA5" stroke-width="2" stroke-linecap="round"/>
+                            <rect x="16" y="22" width="32" height="30" rx="2" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <div class="card-label">Direct Deposit Penetration</div>
+                        <div class="card-number" data-target="20" data-suffix="%">11</div>
+                        <div class="card-description">Target from current 11%</div>
+                    </div>
+
+                    <div class="card">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="20" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="18" cy="44" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <circle cx="46" cy="44" r="8" stroke="#00BFA5" stroke-width="2"/>
+                            <path d="M32 28v8M32 36l-10 5M32 36l10 5" stroke="#27FB6B" stroke-width="2"/>
+                        </svg>
+                        <div class="card-label">Customer Base</div>
+                        <div class="card-number" data-target="1" data-suffix="M+">558K</div>
+                        <div class="card-description">Projected total customers</div>
+                    </div>
+
+                    <div class="card">
+                        <svg class="card-icon" viewBox="0 0 64 64" fill="none">
+                            <path d="M10 40 Q20 20 32 30 T54 25" stroke="#00BFA5" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="32" cy="30" r="4" fill="#27FB6B"/>
+                            <path d="M48 18l6 7-6 7" stroke="#27FB6B" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                        <div class="card-label">Revenue Growth</div>
+                        <div class="card-number" data-target="45" data-suffix="%">30</div>
+                        <div class="card-description">YoY projected increase</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Call to Action -->
+        <section class="slide">
+            <div class="bg-orbs">
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="content">
+                <div class="cta-section">
+                    <h2 style="color: var(--white); margin-bottom: 1rem;">Ready to Scale Together</h2>
+                    <p style="font-size: 1.25rem; color: var(--gray-100); max-width: 700px; margin: 0 auto 2rem;">
+                        MyBambu is redefining financial inclusion with proven growth, innovative technology, and unmatched customer engagement.
+                    </p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 800px; margin: 3rem auto;">
+                        <div>
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--mybambu-green);" data-target="82" class="card-number">82</div>
+                            <div style="color: var(--gray-200); font-weight: 600;">x Combined ROI</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--mybambu-green);" data-target="330" class="card-number">330</div>
+                            <div style="color: var(--gray-200); font-weight: 600;">% YoY Growth</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 3rem; font-weight: 800; color: var(--mybambu-green);" data-target="48.4" class="card-number">48.4</div>
+                            <div style="color: var(--gray-200); font-weight: 600;">M Transactions</div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="cta-button">Let's Talk Growth</a>
+
+                    <p style="margin-top: 2rem; font-size: 0.875rem; color: var(--gray-300);">
+                        Contact: partnerships@mybambu.com
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Navigation dots setup
+        const scrollContainer = document.getElementById('scrollContainer');
+        const slides = document.querySelectorAll('.slide');
+        const navDotsContainer = document.getElementById('navDots');
+
+        slides.forEach((slide, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'nav-dot';
+            dot.addEventListener('click', () => {
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            });
+            navDotsContainer.appendChild(dot);
+        });
+
+        const navDots = document.querySelectorAll('.nav-dot');
+        navDots[0].classList.add('active');
+
+        scrollContainer.addEventListener('scroll', () => {
+            slides.forEach((slide, index) => {
+                const rect = slide.getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    navDots[index].classList.add('active');
+                }
+            });
+        });
+
+        // Animated counter function
+        function animateCounter(element, target, suffix = '', prefix = '') {
+            const duration = 2000;
+            const start = parseFloat(element.textContent) || 0;
+            const increment = (target - start) / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
+                    current = target;
+                    clearInterval(timer);
+                }
+
+                let displayValue = current;
+                if (target >= 1000 && target < 1000000) {
+                    displayValue = (current / 1000).toFixed(0) + 'K';
+                } else if (target >= 1000000) {
+                    displayValue = (current / 1000000).toFixed(1) + 'M';
+                } else if (target < 100 && target % 1 !== 0) {
+                    displayValue = current.toFixed(1);
+                } else {
+                    displayValue = Math.floor(current);
+                }
+
+                element.textContent = prefix + displayValue + suffix;
+                element.classList.add('counting');
+                setTimeout(() => element.classList.remove('counting'), 100);
+            }, 16);
+        }
+
+        // Intersection Observer for counters
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.card-number[data-target]');
+                    counters.forEach(counter => {
+                        if (!counter.classList.contains('animated')) {
+                            counter.classList.add('animated');
+                            const target = parseFloat(counter.dataset.target);
+                            const suffix = counter.dataset.suffix || '';
+                            const prefix = counter.dataset.prefix || '';
+
+                            setTimeout(() => {
+                                animateCounter(counter, target, suffix, prefix);
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const currentIndex = Array.from(navDots).findIndex(dot => dot.classList.contains('active'));
+            if (e.key === 'ArrowDown' && currentIndex < slides.length - 1) {
+                slides[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                slides[currentIndex - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>

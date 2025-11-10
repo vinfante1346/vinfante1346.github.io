@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyBambu Interactive Overview</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +14,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -38,21 +40,33 @@
             overflow: hidden;
         }
 
-        /* MyBambu brand gradient backgrounds */
-        .brand-gradient-1 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* MyBambu official brand colors */
+        .brand-dark-blue {
+            background: #00052E;
         }
 
-        .brand-gradient-2 {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        .brand-green {
+            background: #27FB6B;
         }
 
-        .brand-gradient-3 {
-            background: linear-gradient(135deg, #667eea 0%, #8e54e9 50%, #764ba2 100%);
+        .brand-midnight {
+            background: #000312;
+        }
+
+        .brand-gradient-dark {
+            background: linear-gradient(135deg, #00052E 0%, #001219 100%);
+        }
+
+        .brand-gradient-green {
+            background: linear-gradient(135deg, #17CA60 0%, #27FB6B 100%);
+        }
+
+        .brand-gradient-mixed {
+            background: linear-gradient(135deg, #00052E 0%, #002041 50%, #00052E 100%);
         }
 
         .light-background {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #E1FFEF 0%, #E1F5CB 100%);
         }
 
         /* Navigation dots */
@@ -71,21 +85,21 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(39, 251, 107, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.6);
+            border: 2px solid rgba(39, 251, 107, 0.6);
         }
 
         .nav-dot:hover {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(39, 251, 107, 0.7);
             transform: scale(1.3);
         }
 
         .nav-dot.active {
-            background: white;
+            background: #27FB6B;
             transform: scale(1.5);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(39, 251, 107, 0.8);
         }
 
         /* Progress bar */
@@ -93,11 +107,12 @@
             position: fixed;
             top: 0;
             left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 5px;
+            background: #27FB6B;
             width: 0%;
             z-index: 1001;
             transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(39, 251, 107, 0.5);
         }
 
         /* Logo/Brand */
@@ -105,11 +120,16 @@
             position: fixed;
             top: 30px;
             left: 40px;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 800;
             color: white;
             z-index: 999;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-accent {
+            color: #27FB6B;
         }
 
         /* Content styling */
@@ -131,22 +151,34 @@
         }
 
         h1 {
-            font-size: 4em;
+            font-size: 4.5em;
             margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            line-height: 1.2;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -2px;
         }
 
         h2 {
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .subtitle {
-            font-size: 1.5em;
+            font-size: 1.6em;
             opacity: 0.95;
             margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            color: #27FB6B;
+            font-weight: 600;
+            margin-top: 20px;
         }
 
         /* Hero numbers */
@@ -159,30 +191,33 @@
         }
 
         .hero-stat {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(39, 251, 107, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
             transition: all 0.4s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(39, 251, 107, 0.3);
         }
 
         .hero-stat:hover {
             transform: translateY(-10px) scale(1.05);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(39, 251, 107, 0.2);
+            border-color: #27FB6B;
+            box-shadow: 0 20px 40px rgba(39, 251, 107, 0.3);
         }
 
         .hero-number {
             font-size: 3.5em;
-            font-weight: bold;
+            font-weight: 800;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: #27FB6B;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
         }
 
         .hero-label {
             font-size: 1.2em;
             opacity: 0.9;
+            font-weight: 500;
         }
 
         /* Growth chart bars */
@@ -197,12 +232,13 @@
 
         .chart-bar {
             flex: 1;
-            background: linear-gradient(to top, rgba(255,255,255,0.3), rgba(255,255,255,0.8));
-            border-radius: 10px 10px 0 0;
+            background: linear-gradient(to top, rgba(39, 251, 107, 0.4), #27FB6B);
+            border-radius: 15px 15px 0 0;
             position: relative;
             transition: all 0.5s ease;
             animation: growBar 1.5s ease forwards;
             transform-origin: bottom;
+            box-shadow: 0 -5px 20px rgba(39, 251, 107, 0.3);
         }
 
         @keyframes growBar {
@@ -215,27 +251,29 @@
         }
 
         .chart-bar:hover {
-            background: linear-gradient(to top, rgba(255,255,255,0.5), white);
-            box-shadow: 0 -10px 30px rgba(255,255,255,0.3);
+            background: linear-gradient(to top, rgba(39, 251, 107, 0.6), #66FF66);
+            box-shadow: 0 -10px 40px rgba(39, 251, 107, 0.5);
+            transform: scaleY(1.05);
         }
 
         .bar-label {
             position: absolute;
-            bottom: -40px;
+            bottom: -45px;
             left: 50%;
             transform: translateX(-50%);
-            font-weight: bold;
-            font-size: 1.2em;
+            font-weight: 700;
+            font-size: 1.3em;
         }
 
         .bar-value {
             position: absolute;
-            top: -35px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            font-weight: bold;
-            font-size: 1.1em;
+            font-weight: 800;
+            font-size: 1.2em;
             white-space: nowrap;
+            color: #27FB6B;
         }
 
         /* Timeline */
@@ -251,7 +289,7 @@
             transform: translateX(-50%);
             width: 4px;
             height: 100%;
-            background: rgba(255,255,255,0.3);
+            background: rgba(39, 251, 107, 0.3);
         }
 
         .timeline-item {
@@ -271,46 +309,47 @@
 
         .timeline-content {
             flex: 1;
-            background: rgba(255,255,255,0.15);
+            background: rgba(39, 251, 107, 0.1);
             backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 15px;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(39, 251, 107, 0.3);
             margin: 0 30px;
             transition: all 0.3s ease;
         }
 
         .timeline-content:hover {
-            background: rgba(255,255,255,0.25);
+            background: rgba(39, 251, 107, 0.2);
+            border-color: #27FB6B;
             transform: scale(1.05);
         }
 
         .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background: white;
+            width: 24px;
+            height: 24px;
+            background: #27FB6B;
             border-radius: 50%;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+            box-shadow: 0 0 25px rgba(39, 251, 107, 0.8);
             z-index: 10;
         }
 
         /* Strategic priorities */
         .priority-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
             margin-top: 50px;
         }
 
         .priority-card {
-            background: rgba(255,255,255,0.15);
+            background: rgba(39, 251, 107, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid rgba(39, 251, 107, 0.3);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -322,55 +361,84 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, #ffc107, #ff9800);
+            height: 6px;
+            background: #27FB6B;
         }
 
         .priority-card:hover {
             transform: translateY(-10px);
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: rgba(39, 251, 107, 0.2);
+            border-color: #27FB6B;
+            box-shadow: 0 20px 40px rgba(39, 251, 107, 0.3);
         }
 
         .priority-number {
-            font-size: 3em;
-            font-weight: bold;
+            font-size: 4em;
+            font-weight: 800;
+            color: #27FB6B;
             opacity: 0.3;
             position: absolute;
-            top: 20px;
+            top: 15px;
             right: 30px;
         }
 
         .priority-title {
-            font-size: 1.8em;
-            font-weight: bold;
+            font-size: 1.9em;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
         .priority-details {
             text-align: left;
-            line-height: 1.8;
+            line-height: 1.9;
+            font-weight: 400;
         }
 
         .roi-badge {
             display: inline-block;
-            background: #ffc107;
-            color: #333;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
+            background: #27FB6B;
+            color: #00052E;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 700;
             margin-top: 15px;
+            font-size: 1.1em;
         }
 
         /* Dark text for light backgrounds */
         .light-background .slide-content {
-            color: #333;
+            color: #00052E;
         }
 
         .light-background h1,
         .light-background h2 {
-            color: #667eea;
+            color: #00052E;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .light-background .hero-number {
+            color: #00052E;
+        }
+
+        .light-background .priority-card {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,5,46,0.15);
+        }
+
+        .light-background .priority-card:hover {
+            box-shadow: 0 20px 50px rgba(0,5,46,0.25);
+        }
+
+        .light-background .priority-number {
+            color: #27FB6B;
+        }
+
+        .light-background .priority-title {
+            color: #00052E;
+        }
+
+        .light-background .priority-details {
+            color: #001219;
         }
 
         /* Scroll indicator */
@@ -395,18 +463,18 @@
         }
 
         .scroll-arrow {
-            font-size: 2em;
-            color: white;
-            opacity: 0.7;
+            font-size: 2.5em;
+            color: #27FB6B;
+            opacity: 0.8;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em;
+                font-size: 2.8em;
             }
             h2 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
             .hero-stats {
                 grid-template-columns: 1fr;
@@ -415,7 +483,7 @@
                 right: 15px;
             }
             .logo {
-                font-size: 18px;
+                font-size: 20px;
                 left: 20px;
                 top: 20px;
             }
@@ -449,9 +517,9 @@
 
         /* Key insight boxes */
         .insight-box {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(39, 251, 107, 0.15);
             backdrop-filter: blur(10px);
-            border-left: 5px solid #ffc107;
+            border-left: 5px solid #27FB6B;
             padding: 25px;
             margin: 20px 0;
             border-radius: 10px;
@@ -460,7 +528,7 @@
         }
 
         .insight-box:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(39, 251, 107, 0.25);
             transform: translateX(10px);
         }
 
@@ -469,6 +537,34 @@
             margin-right: 15px;
             display: inline-block;
         }
+
+        /* Brand colors on green background */
+        .brand-green .slide-content {
+            color: #00052E;
+        }
+
+        .brand-green h1,
+        .brand-green h2 {
+            color: #00052E;
+        }
+
+        .brand-green .hero-number {
+            color: #00052E;
+        }
+
+        .brand-green .scroll-arrow {
+            color: #00052E;
+        }
+
+        .brand-green .hero-stat {
+            background: rgba(0, 5, 46, 0.1);
+            border-color: rgba(0, 5, 46, 0.3);
+        }
+
+        .brand-green .hero-stat:hover {
+            background: rgba(0, 5, 46, 0.2);
+            border-color: #00052E;
+        }
     </style>
 </head>
 <body>
@@ -476,7 +572,7 @@
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- Logo -->
-    <div class="logo">MyBambu</div>
+    <div class="logo">My<span class="logo-accent">Bambu</span></div>
 
     <!-- Navigation dots -->
     <div class="nav-dots" id="navDots"></div>
@@ -485,12 +581,13 @@
     <div class="scroll-container" id="scrollContainer">
 
         <!-- Slide 1: Title Slide -->
-        <section class="slide brand-gradient-1">
+        <section class="slide brand-dark-blue">
             <div class="slide-content">
                 <h1>MyBambu</h1>
                 <p class="subtitle">Comprehensive Business Analytics Overview</p>
-                <p style="font-size: 1.3em; margin-top: 20px;">From Inception to Present Day</p>
-                <p style="font-size: 1.1em; opacity: 0.9; margin-top: 30px;">June 2023 - November 2025</p>
+                <p class="tagline">Tu cuenta para todo</p>
+                <p style="font-size: 1.2em; opacity: 0.9; margin-top: 40px;">From Inception to Present Day</p>
+                <p style="font-size: 1.1em; opacity: 0.85; margin-top: 20px;">June 2023 - November 2025</p>
             </div>
             <div class="scroll-indicator">
                 <div class="scroll-arrow">↓</div>
@@ -498,7 +595,7 @@
         </section>
 
         <!-- Slide 2: All-Time Overview -->
-        <section class="slide brand-gradient-2">
+        <section class="slide brand-gradient-dark">
             <div class="slide-content">
                 <h2>All-Time Performance</h2>
                 <p class="subtitle">Complete Business Metrics Since Inception</p>
@@ -524,7 +621,7 @@
         </section>
 
         <!-- Slide 3: Growth Journey -->
-        <section class="slide brand-gradient-3">
+        <section class="slide brand-green">
             <div class="slide-content">
                 <h2>Our Growth Journey</h2>
                 <p class="subtitle">Year-by-Year Transaction Growth</p>
@@ -542,7 +639,7 @@
                         <div class="bar-label">2025</div>
                     </div>
                 </div>
-                <div style="margin-top: 80px;">
+                <div style="margin-top: 100px;">
                     <div class="insight-box">
                         <span class="insight-icon">📈</span>
                         <strong>330% growth</strong> from 2023 to 2024
@@ -556,7 +653,7 @@
         </section>
 
         <!-- Slide 4: Recent Performance -->
-        <section class="slide brand-gradient-1">
+        <section class="slide brand-midnight">
             <div class="slide-content">
                 <h2>Recent Performance Highlights</h2>
                 <p class="subtitle">September vs October 2025 Comparison</p>
@@ -578,7 +675,7 @@
         </section>
 
         <!-- Slide 5: Customer Insights -->
-        <section class="slide brand-gradient-2">
+        <section class="slide brand-gradient-mixed">
             <div class="slide-content">
                 <h2>Customer Insights</h2>
                 <p class="subtitle">Understanding Our Customer Base</p>
@@ -610,7 +707,7 @@
         </section>
 
         <!-- Slide 6: Strategic Priorities -->
-        <section class="slide brand-gradient-3">
+        <section class="slide brand-dark-blue">
             <div class="slide-content">
                 <h2>Strategic Priorities</h2>
                 <p class="subtitle">Top 3 Focus Areas for Q1 2026</p>
@@ -650,14 +747,14 @@
         </section>
 
         <!-- Slide 7: Combined ROI Impact -->
-        <section class="slide brand-gradient-1">
-            <div class="slide-content">
-                <h2>Combined Initiative Impact</h2>
-                <p class="subtitle">Strategic Investment Returns</p>
+        <section class="slide brand-gradient-green">
+            <div class="slide-content" style="color: #00052E;">
+                <h2 style="color: #00052E;">Combined Initiative Impact</h2>
+                <p class="subtitle" style="color: #001219;">Strategic Investment Returns</p>
                 <div style="margin-top: 60px;">
-                    <div class="hero-stat" style="max-width: 600px; margin: 0 auto;">
-                        <div class="hero-number pulse">82x</div>
-                        <div class="hero-label" style="font-size: 1.5em;">Combined ROI Across All Initiatives</div>
+                    <div class="hero-stat" style="max-width: 600px; margin: 0 auto; background: rgba(0,5,46,0.1); border-color: rgba(0,5,46,0.3);">
+                        <div class="hero-number pulse" style="color: #00052E;">82x</div>
+                        <div class="hero-label" style="font-size: 1.5em; color: #00052E;">Combined ROI Across All Initiatives</div>
                     </div>
                 </div>
                 <div style="margin-top: 60px;">
@@ -678,7 +775,7 @@
         </section>
 
         <!-- Slide 8: Transaction Ecosystem -->
-        <section class="slide brand-gradient-2">
+        <section class="slide brand-midnight">
             <div class="slide-content">
                 <h2>Transaction Ecosystem</h2>
                 <p class="subtitle">75 Active Transaction Types Across 13 Categories</p>
@@ -705,7 +802,7 @@
         </section>
 
         <!-- Slide 9: Financial Summary -->
-        <section class="slide brand-gradient-3">
+        <section class="slide brand-gradient-dark">
             <div class="slide-content">
                 <h2>Financial Overview</h2>
                 <p class="subtitle">Total Volume & Transaction Flow</p>
@@ -740,30 +837,30 @@
         <section class="slide light-background">
             <div class="slide-content">
                 <h2>Key Success Factors</h2>
-                <p class="subtitle" style="color: #666;">What Drives Customer Engagement</p>
+                <p class="subtitle" style="color: #001219;">What Drives Customer Engagement</p>
                 <div class="priority-grid">
-                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <div class="priority-number" style="color: #667eea;">✓</div>
-                        <div class="priority-title" style="color: #667eea;">Direct Deposit</div>
-                        <div class="priority-details" style="color: #333;">
+                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,5,46,0.15);">
+                        <div class="priority-number" style="color: #27FB6B;">✓</div>
+                        <div class="priority-title" style="color: #00052E;">Direct Deposit</div>
+                        <div class="priority-details" style="color: #001219;">
                             <p>5.3x lower churn rate</p>
                             <p>Higher transaction frequency</p>
                             <p>Increased customer lifetime value</p>
                         </div>
                     </div>
-                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <div class="priority-number" style="color: #667eea;">✓</div>
-                        <div class="priority-title" style="color: #667eea;">Product Diversity</div>
-                        <div class="priority-details" style="color: #333;">
+                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,5,46,0.15);">
+                        <div class="priority-number" style="color: #27FB6B;">✓</div>
+                        <div class="priority-title" style="color: #00052E;">Product Diversity</div>
+                        <div class="priority-details" style="color: #001219;">
                             <p>3+ products = 3.5x lower churn</p>
                             <p>Higher engagement levels</p>
                             <p>Stronger customer relationships</p>
                         </div>
                     </div>
-                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <div class="priority-number" style="color: #667eea;">✓</div>
-                        <div class="priority-title" style="color: #667eea;">Transaction Frequency</div>
-                        <div class="priority-details" style="color: #333;">
+                    <div class="priority-card" style="background: white; box-shadow: 0 10px 30px rgba(0,5,46,0.15);">
+                        <div class="priority-number" style="color: #27FB6B;">✓</div>
+                        <div class="priority-title" style="color: #00052E;">Transaction Frequency</div>
+                        <div class="priority-details" style="color: #001219;">
                             <p>20+ transactions/month = low churn</p>
                             <p>Daily active users are 4x more retained</p>
                             <p>Engagement drives loyalty</p>
@@ -774,7 +871,7 @@
         </section>
 
         <!-- Slide 11: Looking Ahead -->
-        <section class="slide brand-gradient-1">
+        <section class="slide brand-dark-blue">
             <div class="slide-content">
                 <h2>Looking Ahead</h2>
                 <p class="subtitle">Q1 2026 Targets & Projections</p>
@@ -784,7 +881,7 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3 style="margin-bottom: 15px;">Q1 2026</h3>
+                            <h3 style="margin-bottom: 15px; font-size: 1.5em;">Q1 2026</h3>
                             <p><strong>Target:</strong> Reduce churn to &lt;20%</p>
                             <p><strong>Initiative:</strong> Launch Low-Engagement Alert System</p>
                         </div>
@@ -793,7 +890,7 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3 style="margin-bottom: 15px;">Q2 2026</h3>
+                            <h3 style="margin-bottom: 15px; font-size: 1.5em;">Q2 2026</h3>
                             <p><strong>Target:</strong> 20% Direct Deposit penetration</p>
                             <p><strong>Initiative:</strong> DD Bonus Program rollout</p>
                         </div>
@@ -802,7 +899,7 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h3 style="margin-bottom: 15px;">H2 2026</h3>
+                            <h3 style="margin-bottom: 15px; font-size: 1.5em;">H2 2026</h3>
                             <p><strong>Target:</strong> 30% product cross-sell success</p>
                             <p><strong>Initiative:</strong> "Unlock More" Campaign launch</p>
                         </div>
@@ -812,10 +909,11 @@
         </section>
 
         <!-- Slide 12: Closing -->
-        <section class="slide brand-gradient-2">
+        <section class="slide brand-gradient-mixed">
             <div class="slide-content">
                 <h1>MyBambu</h1>
                 <p class="subtitle">Powering Financial Inclusion</p>
+                <p class="tagline" style="font-size: 1.5em; margin-top: 30px;">Tu cuenta para todo</p>
                 <div style="margin-top: 60px; font-size: 1.2em;">
                     <p>48.4 Million Transactions • 558K Customers • $3.7B Volume</p>
                     <p style="margin-top: 20px; opacity: 0.9;">Building the future of accessible banking</p>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBambu All-Time Transactions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            scroll-snap-align: start;
+        }
+
+        .container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        .slide-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 1400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .hero-number {
+            font-size: 5em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-label {
+            font-size: 1.8em;
+            color: #764ba2;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 1.2em;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 25px;
+            border-left: 5px solid #ffc107;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+
+        .highlight h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            margin: 15px 0;
+            background: #f5f5f5;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+        }
+
+        .timeline-year {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .growth-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>MyBambu</h1>
+                <h2 style="text-align: center; border: none;">All-Time Transaction Summary</h2>
+                <p class="subtitle">June 2023 - November 2025</p>
+
+                <div class="hero-number">48.4 Million</div>
+                <div class="hero-label">Total Transactions Processed</div>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Unique Customers</div>
+                        <div class="metric-value">558,002</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Volume</div>
+                        <div class="metric-value">$3.7B</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Operating Period</div>
+                        <div class="metric-value">2.4 Years</div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    Generated with Claude Code • November 2025
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Growth by Year -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Growth by Year</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Transactions</th>
+                            <th>Customers</th>
+                            <th>Monthly Average</th>
+                            <th>Growth</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>2023</strong><br><span style="font-size: 0.9em; color: #666;">(Jun-Dec, 7 months)</span></td>
+                            <td><strong>4,781,207</strong></td>
+                            <td>81,104</td>
+                            <td>683,029</td>
+                            <td><span style="color: #4caf50; font-weight: bold;">🆕 Launch</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024</strong><br><span style="font-size: 0.9em; color: #666;">(Full Year)</span></td>
+                            <td><strong>20,574,732</strong></td>
+                            <td>410,198</td>
+                            <td>1,714,561</td>
+                            <td><span class="growth-badge">+330.3%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2025</strong><br><span style="font-size: 0.9em; color: #666;">(Jan-Nov, 11 months)</span></td>
+                            <td><strong>23,024,769</strong></td>
+                            <td>295,483</td>
+                            <td>2,093,161</td>
+                            <td><span class="growth-badge">+11.9%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <h3>🚀 Explosive Growth</h3>
+                    <ul style="line-height: 2;">
+                        <li><strong>2023:</strong> Launched in June with 4.8M transactions in 7 months</li>
+                        <li><strong>2024:</strong> Explosive growth - 330% increase, processing 20.6M transactions</li>
+                        <li><strong>2025:</strong> Stabilized growth at 11.9%, processing 23M+ transactions YTD</li>
+                        <li><strong>Projected 2025 Total:</strong> ~25.1M transactions (including December estimate)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Key Milestones -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Key Milestones & Achievements</h2>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">June 2023 - Launch</div>
+                        <p>MyBambu begins operations with first transaction on <strong>June 12, 2023</strong></p>
+                        <p style="margin-top: 10px;">✓ First 7 months: 4.8M transactions<br>
+                           ✓ 81,104 customers acquired</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024 - Hypergrowth</div>
+                        <p>Massive expansion and customer acquisition</p>
+                        <p style="margin-top: 10px;">✓ 330% transaction growth<br>
+                           ✓ 410,198 active customers<br>
+                           ✓ 1.7M average monthly transactions<br>
+                           ✓ Crossed <strong>20 million transactions</strong> milestone</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025 - Scale & Maturity</div>
+                        <p>Platform stabilization at scale</p>
+                        <p style="margin-top: 10px;">✓ 23M+ transactions YTD<br>
+                           ✓ 2.1M average monthly transactions<br>
+                           ✓ 295,483 active customers<br>
+                           ✓ Approaching <strong>50 million total transactions</strong></p>
+                    </div>
+                </div>
+
+                <div class="highlight">
+                    <h3>🏆 Achievement Unlocked</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        <strong>48.4 million transactions in 29 months</strong> = Processing ~1.67M transactions per month on average since inception
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Financial Overview -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Financial Overview</h2>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Credits</div>
+                        <div class="metric-value">$1.85B</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Money flowing into platform</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Debits</div>
+                        <div class="metric-value">$1.84B</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Money flowing out of platform</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Net Value</div>
+                        <div class="metric-value">$7.9M</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Positive net position</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h3 style="color: #764ba2; margin-bottom: 20px;">Volume Metrics</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Transaction Volume</td>
+                                <td><strong>$3.69 Billion</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Average Transaction Size</td>
+                                <td><strong>$76.33</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Average Daily Transactions</td>
+                                <td><strong>~70,000 transactions</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Average Daily Volume</td>
+                                <td><strong>~$5.3 Million</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Transactions per Customer (Lifetime)</td>
+                                <td><strong>86.7 transactions</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Current Performance -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Current Performance (2025)</h2>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Monthly Average</div>
+                        <div class="metric-value">2.09M</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Transactions per month</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Daily Average</div>
+                        <div class="metric-value">~70K</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Transactions per day</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Active Customers</div>
+                        <div class="metric-value">295K</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">October 2025</p>
+                    </div>
+                </div>
+
+                <div class="highlight" style="margin-top: 40px;">
+                    <h3>📊 Performance Highlights</h3>
+                    <ul style="line-height: 2; font-size: 1.1em;">
+                        <li>Processing <strong>2.1M transactions per month</strong> in 2025</li>
+                        <li><strong>22% increase</strong> in monthly volume vs 2024 average</li>
+                        <li>Serving <strong>558,002 unique customers</strong> all-time</li>
+                        <li>Platform handles <strong>~70,000 transactions daily</strong></li>
+                        <li>On track to process <strong>25+ million transactions in 2025</strong></li>
+                    </ul>
+                </div>
+
+                <div class="highlight" style="background-color: #e3f2fd; border-left-color: #2196f3; margin-top: 30px;">
+                    <h3 style="color: #1976d2;">🎯 What This Means</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        MyBambu has established itself as a <strong>high-volume fintech platform</strong>,
+                        processing nearly <strong>50 million transactions in just 2.4 years</strong>.
+                        This positions MyBambu among the <strong>fastest-growing financial services platforms</strong>
+                        in the market.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Summary -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Executive Summary</h2>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; margin: 30px 0;">
+                    <h3 style="color: white; font-size: 2em; margin-bottom: 20px; text-align: center;">
+                        MyBambu by the Numbers
+                    </h3>
+                    <table style="color: white; font-size: 1.2em;">
+                        <tr>
+                            <td style="border: none; padding: 15px;"><strong>Total Transactions:</strong></td>
+                            <td style="border: none; padding: 15px; text-align: right;"><strong>48,380,708</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; padding: 15px;"><strong>Unique Customers:</strong></td>
+                            <td style="border: none; padding: 15px; text-align: right;"><strong>558,002</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; padding: 15px;"><strong>Total Volume:</strong></td>
+                            <td style="border: none; padding: 15px; text-align: right;"><strong>$3.69 Billion</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; padding: 15px;"><strong>Operating Since:</strong></td>
+                            <td style="border: none; padding: 15px; text-align: right;"><strong>June 12, 2023</strong></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; padding: 15px;"><strong>Average Daily Volume:</strong></td>
+                            <td style="border: none; padding: 15px; text-align: right;"><strong>70,000 transactions</strong></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="highlight">
+                    <h3>🚀 Key Achievements</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">Growth</h4>
+                            <ul style="line-height: 1.8;">
+                                <li>330% growth in 2024</li>
+                                <li>23M+ transactions in 2025</li>
+                                <li>Approaching 50M milestone</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #667eea; margin-bottom: 10px;">Scale</h4>
+                            <ul style="line-height: 1.8;">
+                                <li>558K unique customers</li>
+                                <li>$3.7B total volume</li>
+                                <li>70K daily transactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer" style="margin-top: 50px;">
+                    <p style="font-size: 1.1em; color: #333;"><strong>MyBambu: Powering Financial Inclusion</strong></p>
+                    <p>Generated with Claude Code • Data as of November 2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -224,7 +224,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             border: 1px solid var(--gray-200);
         }
 
@@ -276,6 +276,8 @@
             color: var(--navy);
             margin-bottom: 0.5rem;
             position: relative;
+            display: block;
+            line-height: 1.2;
         }
 
         .card-number.counting {
@@ -589,7 +591,10 @@
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             h2 { font-size: 2rem; }
-            .cards-grid { grid-template-columns: 1fr; }
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
             .tech-stack { grid-template-columns: 1fr; }
             .timeline-item {
                 flex-direction: column !important;
@@ -597,9 +602,26 @@
             .timeline-content {
                 margin: 1rem 0;
             }
+            .card {
+                padding: 1.5rem;
+                min-height: auto;
+                overflow: visible !important;
+            }
             .card-number {
-                font-size: 2rem;
+                font-size: 2.5rem !important;
                 white-space: nowrap;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                color: var(--navy) !important;
+                line-height: 1.2;
+                margin: 0.5rem 0;
+            }
+            .card-label {
+                font-size: 0.75rem;
+            }
+            .card-description {
+                font-size: 0.8rem;
             }
             .slide {
                 padding: 60px 20px;
@@ -612,6 +634,9 @@
             }
             .subtitle {
                 font-size: 1rem;
+            }
+            .nav-dots {
+                display: none;
             }
         }
 
@@ -1235,7 +1260,7 @@
         // Animated counter function
         function animateCounter(element, target, suffix = '', prefix = '') {
             const duration = 2000;
-            const start = parseFloat(element.textContent) || 0;
+            const start = parseFloat(element.textContent.replace(/[^0-9.]/g, '')) || 0;
             const increment = (target - start) / (duration / 16);
             let current = start;
 
@@ -1258,6 +1283,8 @@
                 }
 
                 element.textContent = prefix + displayValue + suffix;
+                element.style.visibility = 'visible';
+                element.style.opacity = '1';
                 element.classList.add('counting');
                 setTimeout(() => element.classList.remove('counting'), 100);
             }, 16);
@@ -1265,8 +1292,8 @@
 
         // Intersection Observer for counters
         const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
+            threshold: 0.2,
+            rootMargin: '50px'
         };
 
         const observer = new IntersectionObserver((entries) => {
